@@ -13,14 +13,23 @@ function Track() {
             <Candlestick/>
         </div>
         <div className='md:basis-1/3 overflow-auto h-3/4 scroll-smooth'>
-            <div>
+        <div class="mx-auto max-w-md overflow-hidden rounded-lg shadow-4xl">
             <div role="tablist" className="tabs tabs-border">
                 <button role="tab" className={`tab ${selected=='buy'?"tab-active":""}`} onClick={()=>setSelected("buy")}>Market Buy</button>
                 <button role="tab" className={`tab ${selected=='sell'?"tab-active":""}`} onClick={()=>setSelected("sell")}>Market Sell</button>
                 
-                
-                
                 </div>
+                {selected=='buy' &&
+                <div className='mx-auto max-w-md overflow-hidden rounded-lg shadow-4xl'>
+                    <input type="number" placeholder="Shares to Buy" className="input input-sm input-success mx-2" />
+                    <button className="btn btn-sm btn-soft btn-success">Buy</button>
+                    </div>}
+                {selected=='sell'&& 
+                <div className='mx-auto max-w-md overflow-hidden rounded-lg shadow-4xl'>
+                    <input type="number" placeholder="Shares to Sell" className="input input-sm input-success mx-2" />
+                    <button className="btn btn-sm btn-soft btn-success">Sell</button>
+                    </div>}
+                
             </div>
             
             

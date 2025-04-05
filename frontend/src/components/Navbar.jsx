@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import logo from '../assets/logo.png'; // Adjust the path as necessary
 import {LayoutDashboard} from 'lucide-react';
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from '../hooks/useAuthContext';
 const Navbar = () => {
   const [activeTab, setActiveTab] = useState('/');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user } = useAuthContext();
   const navItems = [
     
     { id: 'track', label: 'Track' },
@@ -30,7 +32,7 @@ const Navbar = () => {
           
             
             {/* Primary Nav */}
-            <div className=" items-center space-x-3">
+            <div className={`${user?"items-center space-x-3":"hidden"}`} >
                
 
                     
@@ -55,7 +57,7 @@ const Navbar = () => {
              
               
             </div>
-              <button className={`py-4 px-3 md:mb-5 md:mr-24 font-medium transition duration-300 ${
+              <button className={`${user?"":"hidden"} py-4 px-3 md:mb-5 md:mr-24 font-medium transition duration-300 ${
                       activeTab === 'dashboard'
                       ? 'text-green-500 border-b-2 border-green-500'
                       : 'text-gray-200 hover:text-green-500'
@@ -74,7 +76,7 @@ const Navbar = () => {
                 
             </div>
           <button
-  className="mobile-menu-button p-2"
+  className={`mobile-menu-button p-2 ${user?"":"hidden"}`}
   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
 >
   <svg

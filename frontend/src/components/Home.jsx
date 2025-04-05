@@ -1,9 +1,10 @@
 
     import React from 'react';
 import { BarChart, LineChart, PieChart,CirclePlay,Landmark } from 'lucide-react';
-import Aurora from '../ui/Aurora';
-  
+
+import { useNavigate } from "react-router-dom";
 const Home = () => {
+    const navigate = useNavigate();
   return (
     <>
     
@@ -18,7 +19,9 @@ const Home = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">The <span className='font-extrabold text-green-700'>easiest</span> way to trade stocks</h2>
             <p className="text-lg text-gray-600 mb-8">From the small stuff to the big picture, organizes the work so teams know what to do, why it matters, and how to get it done.</p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <button className="px-8 py-3 bg-green-800 text-white rounded-lg text-lg hover:scale-110 transition duration-300">Get Started</button>
+              <button className="px-8 py-3 bg-green-800 text-white rounded-lg text-lg hover:scale-110 transition duration-300"
+              onClick={()=>{navigate('/signup')}}
+              >Get Started</button>
               <button className="px-8 py-3 border border-gray-300 rounded-lg text-lg text-green-800 transition duration-300 hover:text-white hover:bg-green-800 flex"><CirclePlay className='mx-2 mt-1'/> Watch Demo</button>
             </div>
           </div>
