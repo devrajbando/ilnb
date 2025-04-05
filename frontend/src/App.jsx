@@ -9,6 +9,7 @@ import Signup from './components/SignUp'
 import Compare from './components/Compare'
 import Track from './components/Track'
 import Equities from './components/Equities'
+import Dashboard from './components/Dashboard'
 import MutualFunds from './components/MutualFunds'
 import ProtectedRoute from './components/ProtectedRoute'
 import { AuthProvider } from './context/AuthContext'
@@ -30,10 +31,16 @@ function App() {
           <Route path="/signup" element={<Signup/>} />
          
           
-          <Route path="/compare" element={<ProtectedRoute><Compare /></ProtectedRoute>} />
+          {/* <Route path="/compare" element={<ProtectedRoute><Compare /></ProtectedRoute>} />
         <Route path="/equities" element={<ProtectedRoute><Equities /></ProtectedRoute>} />
         <Route path="/track" element={<ProtectedRoute><Track /></ProtectedRoute>} />
         <Route path="/mutualfunds" element={<ProtectedRoute><MutualFunds /></ProtectedRoute>} />
+        </Routes> */}
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/compare" element={<Compare />} />
+        <Route path="/equities" element={<Equities />} />
+        <Route path="/track" element={<Track />} />
+        <Route path="/mutualfunds" element={<MutualFunds />} />
         </Routes>
         
       <Footer/>

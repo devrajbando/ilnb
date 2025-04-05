@@ -9,7 +9,7 @@ export default function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmpass, setConfirmPass] = useState('');
+  const [confirmPass, setConfirmPass] = useState('');
  const [error, setError] = useState('');
  const [answers, setAnswers] = useState({});
   const [score, setScore] = useState(0);
@@ -163,15 +163,15 @@ export default function Signup() {
     event.preventDefault();
 
 
-    // if(name == '' || email =='' || password ==''){
-    //   setError('All fields must be filled');
-    //   return;
-    // }
+    if(name == '' || email =='' || password ==''){
+      setError('All fields must be filled');
+      return;
+    }
 
-    // if(password!==confirmpass){
-    //   setError('Passwords do not match');
-    //   return;
-    // }
+    if(password!==confirmPass){
+      setError('Passwords do not match');
+      return;
+    }
 
     
     try {
@@ -220,10 +220,6 @@ export default function Signup() {
 
   return (
     <>
-      <div className='flex flex-col justify-center items-center'>
-        <h1 className='text-center text-white text-5xl font-bold my-5'><span className='text-green-700'>INLB</span> Financial Services</h1>
-        
-      </div>
 
       {page === 1 && (
         
@@ -317,7 +313,7 @@ export default function Signup() {
             </div>
           </div>
 
-          {/* Confirm Password Input
+
           <div>
             <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-100">
               Confirm Password
@@ -330,19 +326,19 @@ export default function Signup() {
                 id="confirmpassword"
                 type="password"
                 required
-                value={confirm}
-                onChange={(e) => setConfirm(e.target.value)}
+                value={confirmPass}
+                onChange={(e) => setConfirmPass(e.target.value)}
                 className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Confirm your password"
                 />
             </div>
-          </div> */}
+          </div>
         </div>
 
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200"
           >
           Submit
         </button>
@@ -368,65 +364,70 @@ export default function Signup() {
        
 
     
-         {page ==2 && 
-         <div className="max-w-4xl mx-auto p-6 rounded-lg shadow-lg">
-         <h1 className="text-3xl font-bold text-center mb-6">Investment Risk Assessment</h1>
-         
-         {!submitted ? (
-           <>
-             <p className="mb-6 text-gray-500">
-               Please answer the following questions to help us understand your investment preferences and risk tolerance.
-             </p>
-             
-             <div className="space-y-10">
-               {questions.map((question) => (
-                 <div key={question.id} className="mb-8">
-                   <h3 className="text-xl font-semibold mb-4">{question.id}. {question.text}</h3>
-                   <div className="flex flex-wrap">
-                     {question.options.map((option, index) => (
-                       <button
-                         key={index}
-                         className={`${getButtonClasses(option.type)} ${answers[question.id] === option.points ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}
-                         onClick={() => handleSelect(question.id, option.points)}
-                       >
-                         {option.text}
-                       </button>
-                     ))}
-                   </div>
-                 </div>
-               ))}
-             </div>
-             
-             <div className="mt-10 flex justify-between">
-               <button 
-                 className="btn btn-outline"
-                 onClick={()=>setPage(1)}
-               >
-                 Back
-               </button>
-               <button 
-                 className="btn btn-primary"
-                 onClick={calculateScore}
-                 disabled={Object.keys(answers).length !== questions.length}
-               >
-                 Submit
-               </button>
-             </div>
-           </>
-         ) : (
-           <div className="results-container text-center p-6 bg-blue-50 rounded-lg">
-             <h2 className="text-2xl font-bold mb-4">Your Risk Assessment Results</h2>
-             <div className="text-5xl font-bold mb-6">{score} / 30</div>
-             
-             <div className="mb-6">
-               <h3 className="text-xl font-bold mb-2">{getInvestorProfile(score).type} Investor</h3>
-               <p className="text-gray-700">{getInvestorProfile(score).description}</p>
-             </div>
-             
-             
-           </div>
-         )}
-       </div>}
+       {page === 2 && (
+  <div className="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-4xl w-full bg-gray-800 text-white p-8 rounded-lg shadow-md">
+      <h1 className="text-3xl font-bold text-center mb-6 text-green-400">Investment Risk Assessment</h1>
+
+      {!submitted ? (
+        <>
+          <p className="mb-8 text-center text-gray-300 text-sm">
+            Answer the following to help us understand your investment risk profile.
+          </p>
+
+          <div className="space-y-10">
+            {questions.map((question) => (
+              <div key={question.id} className="bg-gray-700 p-6 rounded-lg shadow-sm">
+                <h3 className="text-lg font-semibold mb-4">{question.id}. {question.text}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {question.options.map((option, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      className={`${getButtonClasses(option.type)} ${answers[question.id] === option.points ? 'ring-2 ring-offset-2 ring-green-400' : ''} hover:brightness-110 transition-all`}
+                      onClick={() => handleSelect(question.id, option.points)}
+                    >
+                      {option.text}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex justify-between">
+            <button
+              className="px-4 py-2 rounded-md border border-gray-500 text-gray-300 hover:bg-gray-700"
+              onClick={() => setPage(1)}
+            >
+              Back
+            </button>
+            <button
+              className="px-4 py-2 rounded-md bg-green-600 hover:bg-green-700 text-white font-semibold disabled:opacity-50"
+              onClick={calculateScore}
+              disabled={Object.keys(answers).length !== questions.length}
+            >
+              Submit
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className="text-center bg-gray-700 p-10 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-bold mb-4 text-green-300">Your Risk Assessment Result</h2>
+          <div className="text-5xl font-extrabold text-green-400 mb-6">{score} / 30</div>
+
+          <div className="mb-6">
+            <h3 className="text-xl font-semibold">{getInvestorProfile(score).type} Investor</h3>
+            <p className="text-gray-300 mt-2">
+              Based on your answers, your profile indicates a {getInvestorProfile(score).type.toLowerCase()} risk tolerance.
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+)}
+
       
 
        
