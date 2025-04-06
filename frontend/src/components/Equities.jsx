@@ -10,7 +10,7 @@ function Equities() {
   useEffect(() => {
     const fetchStocks = async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/stock/stockDisplay');
+        const res = await fetch('http://localhost:8000/api/stock/stockDisplay');
         const data = await res.json();
         setStocks(data);
       } catch (err) {

@@ -1,12 +1,14 @@
 
 import React from 'react';
-import { BarChart, LineChart, PieChart,CirclePlay,Landmark } from 'lucide-react';
+import { BarChart, LineChart, PieChart,CirclePlay,Landmark,LayoutDashboard,Brain,Figma } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from "react-router-dom";
-
+import Stocks from '../assets/white stocks.svg';
+import Analyse from '../assets/analysis.svg';
+import { useAuthContext } from '../hooks/useAuthContext';
 const Home = () => {
   const navigate = useNavigate();
-
+  const { user } = useAuthContext();
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
@@ -43,13 +45,13 @@ const Home = () => {
             >
               <button
                 className="px-8 py-3 bg-green-700 text-white rounded-xl text-lg hover:scale-110 transition duration-300 shadow-md"
-                onClick={() => { navigate('/signup'); }}
+                onClick={() => { user?navigate('/dashboard'):navigate('/signup'); }}
               >
                 Get Started
               </button>
-              <button className="px-8 py-3 border border-green-500 rounded-xl text-lg text-green-400 transition duration-300 hover:text-white hover:bg-green-700 flex items-center">
+              {/* <button className="px-8 py-3 border border-green-500 rounded-xl text-lg text-green-400 transition duration-300 hover:text-white hover:bg-green-700 flex items-center">
                 <CirclePlay className='mr-2 animate-ping-slow' /> Watch Demo
-              </button>
+              </button> */}
             </motion.div>
           </div>
           <div className="md:w-1/2 flex justify-center">
@@ -57,45 +59,98 @@ const Home = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              src="/mnt/data/A_2D_digital_illustration_showcases_a_stock_manage.png"
+              src={Stocks}
               alt="Stocks illustration"
-              className="rounded-xl shadow-lg w-full max-w-md"
+              className="rounded-xl shadow-lg w-full max-w-md h-96"
             />
+            {/* <Stocks/> */}
+              {/* <img src={Stocks} alt="" className='h-96'/> */}
+            
           </div>
         </motion.div>
       </section>
 
       {/* Features Section */}
       <section className="py-20 px-4">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }} 
-          whileInView={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 0.5 }} 
-          viewport={{ once: true }}
-          className="text-4xl font-bold text-center text-green-400 mb-16"
-        >
-          Why Choose Us
-        </motion.h2>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto'>
-          {[...Array(4)].map((_, i) => (
-            <motion.div 
-              key={i} 
-              initial={{ opacity: 0, y: 30 }} 
-              whileInView={{ opacity: 1, y: 0 }} 
-              transition={{ duration: 0.4, delay: i * 0.2 }} 
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.05 }}
-              className="bg-green-950 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 text-white text-center"
-            >
-              <Landmark className='mx-auto h-20 text-green-400 mb-4 animate-bounce-slow' />
-              <h3 className="text-2xl font-semibold mb-2">Portfolio Tracking</h3>
-              <p className="text-gray-400">
-                Monitor all your investments across platforms like Zerodha, MF Central, and Angel One in a single glance.
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+  <motion.h2 
+    initial={{ opacity: 0, y: 20 }} 
+    whileInView={{ opacity: 1, y: 0 }} 
+    transition={{ duration: 0.5 }} 
+    viewport={{ once: true }}
+    className="text-4xl font-bold text-center text-green-400 mb-16"
+  >
+    Why Choose Us
+  </motion.h2>
+
+  <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto'>
+
+    {/* Feature 1: Automatic Portfolio Tracking */}
+    <motion.div 
+      initial={{ opacity: 0, y: 30 }} 
+      whileInView={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.4, delay: 0 * 0.2 }} 
+      viewport={{ once: true }}
+      whileHover={{ scale: 1.05 }}
+      className="bg-green-950 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 text-white text-center"
+    >
+      <Landmark className='mx-auto h-20 text-green-400 mb-4 animate-bounce-slow' />
+      <h3 className="text-2xl font-semibold mb-2">Automatic Portfolio Tracking</h3>
+      <p className="text-gray-400">
+        Tired of juggling multiple investment apps? View holdings from Zerodha, MF Central, and more — all in one glance, like PhonePe for stocks.
+      </p>
+    </motion.div>
+
+    {/* Feature 2: Smart AI-Powered Comparison Tool */}
+    <motion.div 
+      initial={{ opacity: 0, y: 30 }} 
+      whileInView={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.4, delay: 1 * 0.2 }} 
+      viewport={{ once: true }}
+      whileHover={{ scale: 1.05 }}
+      className="bg-green-950 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 text-white text-center"
+    >
+      <Brain className='mx-auto h-20 text-green-400 mb-4 animate-bounce-slow' />
+      <h3 className="text-2xl font-semibold mb-2">AI-Powered Comparison Tool</h3>
+      <p className="text-gray-400">
+        Like Netflix recommends shows, our AI suggests better funds and stocks. See ratings, risk meters 🟡, and smart "Switch Now?" prompts.
+      </p>
+    </motion.div>
+
+    {/* Feature 3: One Dashboard for Tracking + Execution */}
+    <motion.div 
+      initial={{ opacity: 0, y: 30 }} 
+      whileInView={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.4, delay: 2 * 0.2 }} 
+      viewport={{ once: true }}
+      whileHover={{ scale: 1.05 }}
+      className="bg-green-950 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 text-white text-center"
+    >
+      <LayoutDashboard className='mx-auto h-20 text-green-400 mb-4 animate-bounce-slow' />
+      <h3 className="text-2xl font-semibold mb-2">One Dashboard for Everything</h3>
+      <p className="text-gray-400">
+        Track and execute all investments from one place — like ordering from multiple restaurants on Swiggy. Just click "Quick Invest" ✅.
+      </p>
+    </motion.div>
+
+    {/* Feature 4: Super Simple & Interactive UI */}
+    <motion.div 
+      initial={{ opacity: 0, y: 30 }} 
+      whileInView={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.4, delay: 3 * 0.2 }} 
+      viewport={{ once: true }}
+      whileHover={{ scale: 1.05 }}
+      className="bg-green-950 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 text-white text-center"
+    >
+      <Figma className='mx-auto h-20 text-green-400 mb-4 animate-bounce-slow' />
+      <h3 className="text-2xl font-semibold mb-2">Super Simple Interface</h3>
+      <p className="text-gray-400">
+        Finance, simplified. Emoji-based icons 💰, plain-English summaries, and one-click actions like "Compare" or "Invest Now" — just like Uber.
+      </p>
+    </motion.div>
+
+  </div>
+</section>
+
 
       {/* Call to Action Section */}
       <section className="min-h-[70vh] flex items-center px-4 py-20 relative overflow-hidden">
@@ -115,7 +170,7 @@ const Home = () => {
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
-              onClick={() => navigate('/signup')}
+              onClick={() => user?navigate('/track'):navigate('/signup')}
               className="bg-green-700 text-white font-semibold px-6 py-3 rounded-xl hover:bg-white hover:text-green-800 transition shadow-lg"
             >
               Start Tracking
@@ -127,9 +182,9 @@ const Home = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              src="/mnt/data/A_2D_digital_illustration_displays_a_stock_trading.png"
+              src={Analyse}
               alt="Stock dashboard"
-              className="rounded-xl shadow-xl"
+              className="rounded-xl shadow-xl mx-auto h-96"
             />
           </div>
         </motion.div>

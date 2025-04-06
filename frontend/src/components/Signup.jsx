@@ -116,32 +116,24 @@ export default function Signup() {
   };
 
   const calculateScore = () => {
+    // Check if all questions have been answered
+    if (Object.keys(answers).length !== questions.length) {
+      setError("Please answer all the questions before submitting.");
+      return;
+    }
+  
+    // Calculate the total score
     const totalScore = Object.values(answers).reduce((acc, curr) => acc + curr, 0);
+  
+    // Set the score and mark the form as submitted
     setScore(totalScore);
     setSubmitted(true);
-    registerUser()
-  };
-
-  const getInvestorProfile = (score) => {
-    if (score <= 15) {
-      return {
-        type: "Conservative",
-        
-      };
-    } else if (score <= 25) {
-      return {
-        type: "Moderate",
-        
-      };
-    } else {
-      return {
-        type: "Aggressive",
-        
-      };
-    }
-  };
-
   
+    // Call the registerUser function to submit the data
+    registerUser();
+  };
+
+   
 
   // Get button color classes based on button type
   const getButtonClasses = (type) => {
@@ -160,12 +152,7 @@ export default function Signup() {
   };
 
   async function registerUser() {
-    
 
-
-    
-
-    
     try {
         const response = await fetch('http://localhost:8000/api/users/signup', {
           method: 'POST',
@@ -206,9 +193,6 @@ export default function Signup() {
     
   }
 
-
-
- 
 
   return (
     <>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import logo from '../assets/logo.png';
-import { LayoutDashboard, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Menu, X ,LogOut} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 
@@ -14,7 +14,7 @@ const navItems = [
 
 const Navbar = () => {
   const { user } = useAuthContext();
-  const [activeTab, setActiveTab] = useState('tra/ck');
+  const [activeTab, setActiveTab] = useState('track');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-6">
+        <div className={`${user?"":"hidden"} hidden md:flex items-center space-x-6`}>
           {navItems.map((item) => (
             <button
               key={item.id}
@@ -61,6 +61,16 @@ const Navbar = () => {
           >
             <LayoutDashboard size={20} />
           </button>
+          <button
+            onClick={() => handleTabClick('logout')}
+            className={`p-1 transition duration-300 border-b-2 ${
+              activeTab === 'logout'
+                ? 'border-cyan-400 text-cyan-400'
+                : 'border-transparent text-gray-300 hover:text-cyan-400 hover:border-cyan-400'
+            }`}
+          >
+            <LogOut size={20} />
+          </button>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -73,7 +83,7 @@ const Navbar = () => {
 
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-gray-800 px-4 pb-4 space-y-2">
+        <div className={`${user?"":"hidden"} md:hidden bg-gray-800 px-4 pb-4 space-y-2`}>
           {navItems.map((item) => (
             <button
               key={item.id}
@@ -96,6 +106,16 @@ const Navbar = () => {
             }`}
           >
             <LayoutDashboard size={18} /> Dashboard
+          </button>
+          <button
+            onClick={() => handleTabClick('logout')}
+            className={`w-full flex items-center gap-2 py-2 px-2 rounded-md font-medium transition duration-200 ${
+              activeTab === 'logout'
+                ? 'bg-cyan-500 text-white'
+                : 'text-gray-300 hover:bg-cyan-500 hover:text-white'
+            }`}
+          >
+            <LogOut size={18} /> Logout
           </button>
         </div>
       )}

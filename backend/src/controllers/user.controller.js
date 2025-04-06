@@ -92,8 +92,7 @@ const LoginUser=asyncHandler(async(req,res)=>{
     if(!user)
         throw new ApiError(404,"user does  not exist")
 
-    console.log(password)
-    console.log(user.password)
+    
 
     // const isPasswordValid=password === user.password ? true:false
 
@@ -116,7 +115,7 @@ const LoginUser=asyncHandler(async(req,res)=>{
         secure:true,
         sameSite: "None",
     }
-    console.log("reached final point ",accessToken)
+    console.log("reached final point ")
     return res   
     .status(200)
     .cookie("accessToken",accessToken,options)

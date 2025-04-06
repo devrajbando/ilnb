@@ -8,6 +8,7 @@ import Compare from './components/Compare';
 import Chatbot from './components/Chatbot';
 import Signup from './components/SignUp';
 import Login from './components/Login';
+import Logout from './components/Logout';
 import Footer from './components/Footer';
 import { AuthProvider } from './context/AuthContext';
 import Track from './components/Track';
@@ -27,27 +28,21 @@ function App() {
     <div className='font-inter'>
       <Router>
       
-      <Chatbot/>
+          <ProtectedRoute><Chatbot/></ProtectedRoute>
       <Navbar/>
         <Routes>
           <Route path="/" element={<Home />} />
           
           
           <Route path="/login" element={<Login/>} />
-          <Route path="/signup" element={<Signup/>} />
-
-         
-          
+          <Route path="/signup" element={<Signup/>} />        
           <Route path="/compare" element={<ProtectedRoute><Compare /></ProtectedRoute>} />
         <Route path="/equities" element={<ProtectedRoute><Equities /></ProtectedRoute>} />
         <Route path="/track" element={<ProtectedRoute><Track /></ProtectedRoute>} />
+        <Route path="/logout" element={<ProtectedRoute><Logout /></ProtectedRoute>} />
         <Route path="/mutualfunds" element={<ProtectedRoute><MutualFunds /></ProtectedRoute>} /> 
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> 
       
-          {/* <Route path="/compare" element={<Compare />} />
-        <Route path="/equities" element={<Equities />} />
-        <Route path="/track" element={<Track />} />
-        <Route path="/mutualfunds" element={<MutualFunds />} />  */}
        
          
 

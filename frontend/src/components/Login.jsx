@@ -16,6 +16,7 @@ export default function Login() {
     try {
         const response = await fetch('http://localhost:8000/api/users/login', {
           method: 'POST',
+          credentials: 'include', // Include cookies in the request
           headers: {
             'Content-Type': 'application/json',
           },
@@ -31,7 +32,7 @@ export default function Login() {
           
           setError(data.message );
         }
-       
+        console.log('devraj')
             console.log(data.data.user);
     
             if (data.statusCode == 200) {

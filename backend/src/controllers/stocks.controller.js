@@ -12,6 +12,7 @@ export const displayStocks= async (req, res) => {
         console.log(stocks) // Limit or paginate
         res.status(200).json(stocks);
       } catch (err) {
+        console.log(err)
         res.status(500).json({ error: 'Failed to fetch stocks' });
       }
   }
