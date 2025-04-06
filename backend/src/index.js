@@ -16,7 +16,9 @@ import connectDB from './db/index.js'
             console.log(`server is running at port ${port}`)
         })
     })
+
     .catch(err=>{
         console.log("mongoDB connection failed",err)
     })
         
+

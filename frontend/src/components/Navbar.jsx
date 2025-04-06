@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../assets/logo.png'; // Adjust the path as necessary
+
 import {LayoutDashboard} from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from '../hooks/useAuthContext';
@@ -120,6 +121,7 @@ const Navbar = () => {
     ))}
   </div>
 </div>
+
     </nav>
   );
 };

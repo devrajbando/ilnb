@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
@@ -15,11 +16,13 @@ import Track from './components/Track';
 import ProtectedRoute from './components/ProtectedRoute';
 import Equities from './components/Equities';
 import MutualFunds from './components/MutualFunds';
+
 function App() {
   
 
   return (
     <>
+
 
     <AuthProvider>
     <div className='font-inter'>
@@ -27,15 +30,20 @@ function App() {
       {/* <Provider> */}
       <Navbar/>
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/login" element={<Login />}></Route>
+          <Route path="/" element={<Home />} />
+   
+          <Route path="/login" element={<Login/>} />
+          <Route path="/signup" element={<Signup/>} />
 
-          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          <Route path="/equities" element={<ProtectedRoute><Equities /></ProtectedRoute>} />
-          <Route path="/track" element={<ProtectedRoute><Track /></ProtectedRoute>} />
-          <Route path="/compare" element={<ProtectedRoute><Compare /></ProtectedRoute>} />
-          <Route path="/mutualfunds" element={<ProtectedRoute><MutualFunds /></ProtectedRoute>} />
+          {/* <Route path="/compare" element={<ProtectedRoute><Compare /></ProtectedRoute>} />
+        <Route path="/equities" element={<ProtectedRoute><Equities /></ProtectedRoute>} />
+        <Route path="/track" element={<ProtectedRoute><Track /></ProtectedRoute>} />
+          
+        <Route path="/mutualfunds" element={<ProtectedRoute><MutualFunds /></ProtectedRoute>} /> */}
+          <Route path="/compare" element={<Compare />} />
+          <Route path="/equities" element={<Equities />} />
+          <Route path="/track" element={<Track />} />
+          <Route path="/mutualfunds" element={<MutualFunds />} />
 
           
         </Routes>
@@ -44,6 +52,12 @@ function App() {
       </Router>
     </div>
       </AuthProvider>
+
+         
+          
+         
+          
+         
     </>
   )
 }

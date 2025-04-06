@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+
     content: [
       "./src/**/*.{js,jsx,ts,tsx}", // make sure your paths are correct
     ],
@@ -10,6 +11,7 @@ export default {
         },
       },
     },
-    plugins: [],
+    plugins: [require('daisyui')],
   }
   
+

@@ -71,4 +71,6 @@ function Equities() {
   )
 }
 
+
 export default Equities
+
