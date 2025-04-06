@@ -6,6 +6,7 @@ import userRouter from './routes/user.routes.js';
 import chatRouter from './routes/chat.routes.js';
 
 import stockRouter from './routes/stock.routes.js';
+import mfRouter from './routes/mf.routes.js';
 
 import { createServer } from 'node:http';
 
@@ -35,6 +36,7 @@ app.use(cookieParser())
 
 app.use('/api/users', userRouter);
 app.use('/api/chat', chatRouter);
+app.use('/api/mf', mfRouter);
 
 app.use('/api/stock', stockRouter);
   

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {registerUser,LoginUser,LogoutUser,CurrentUser} from '../controllers/user.controller.js'
+import {registerUser,LoginUser,LogoutUser,getStocks,getMFunds} from '../controllers/user.controller.js'
 import {verifyJWT} from '../middleware/auth.middleware.js'
 
 
@@ -16,6 +16,8 @@ userRouter.route('/verify').get(verifyJWT, async (req, res) => {
 userRouter.route('/login').post(LoginUser)
 
 userRouter.route('/logout').post(verifyJWT,LogoutUser)
+userRouter.route('/stocks').post(verifyJWT,getStocks)
+userRouter.route('/mutualfunds').post(verifyJWT,getMFunds)
 
 
 

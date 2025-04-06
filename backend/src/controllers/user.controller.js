@@ -2,10 +2,13 @@ import { asyncHandler } from "../utils/AsyncHandler.js";
 import {ApiError} from '../utils/ApiError.js'
 import {User} from '../models/user.model.js'
 import bcrypt from 'bcrypt'
+
+
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from 'jsonwebtoken'
 import { mongoose } from "mongoose";
-
+import {mfData} from '../data/mfData.js'
+import {stockData} from '../data/stockData.js'
 
 const generateAccessAndRefreshToken=async(userId)=>
     {
@@ -57,6 +60,8 @@ const registerUser=asyncHandler(async(req,res)=>{
                 email:req.body.email,
                 password:newPassword,
                 score:req.body.score,
+                stocks:stockData,
+                mutualFunds:mfData,
             })
     
             const createdUser=await User.findById(user._id).select(
@@ -184,6 +189,35 @@ const CurrentUser=asyncHandler(async(req,res)=>{
     
 })
 
+const getStocks=asyncHandler(async(req,res)=>{
+    const userId=req.user._id
+    const stocks=await User.findById(userId).select("stocks")
+    
+    if(!stocks){
+        return res.status(409).json({
+            status: 409,
+            message: "Stocks not found",
+        })
+    }
+   
+    return res.status(200).json(new ApiResponse(200,stocks,"Stocks fetched successfully"))
+})
+const getMFunds=asyncHandler(async(req,res)=>{
+    const userId=req.user._id
+    const mutualFunds=await User.findById(userId).select("mutualFunds")
+    
+    if(!mutualFunds){
+        return res.status(409).json({
+            status: 409,
+            message: "mutualFunds not found",
+        })
+    }
+   
+    return res.status(200).json(new ApiResponse(200,mutualFunds,"mutualFunds fetched successfully"))
+})
+
+
+
 export {generateAccessAndRefreshToken,
     // verifyEmail,
     registerUser,
@@ -191,5 +225,7 @@ export {generateAccessAndRefreshToken,
     LogoutUser
     ,checkAuth,
     CurrentUser,
+    getStocks,
+    getMFunds
     
 }

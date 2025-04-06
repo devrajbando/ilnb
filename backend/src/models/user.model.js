@@ -26,7 +26,14 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 6
   },
- 
+  mutualFunds:{
+    type:[Object],
+  },
+  stocks:{
+    // type:[Number],
+    // ref:'Stock',
+    type:[Object]
+  },
   refreshToken:{
     type:String
 }

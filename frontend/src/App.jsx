@@ -28,20 +28,20 @@ function App() {
     <div className='font-inter'>
       <Router>
       
-          <ProtectedRoute><Chatbot/></ProtectedRoute>
       <Navbar/>
         <Routes>
           <Route path="/" element={<Home />} />
           
           
+          {/* <ProtectedRoute><Chatbot/></ProtectedRoute> */}
           <Route path="/login" element={<Login/>} />
           <Route path="/signup" element={<Signup/>} />        
-          <Route path="/compare" element={<ProtectedRoute><Compare /></ProtectedRoute>} />
-        <Route path="/equities" element={<ProtectedRoute><Equities /></ProtectedRoute>} />
-        <Route path="/track" element={<ProtectedRoute><Track /></ProtectedRoute>} />
-        <Route path="/logout" element={<ProtectedRoute><Logout /></ProtectedRoute>} />
-        <Route path="/mutualfunds" element={<ProtectedRoute><MutualFunds /></ProtectedRoute>} /> 
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> 
+          <Route path="/compare" element={<ProtectedRoute><Compare /><Chatbot/></ProtectedRoute>} />
+        <Route path="/equities" element={<ProtectedRoute><Equities /><Chatbot/></ProtectedRoute>} />
+        <Route path="/track" element={<ProtectedRoute><Track /><Chatbot/></ProtectedRoute>} />
+        <Route path="/logout" element={<ProtectedRoute><Logout /><Chatbot/></ProtectedRoute>} />
+        <Route path="/mutualfunds" element={<ProtectedRoute><MutualFunds /><Chatbot/></ProtectedRoute>} /> 
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /><Chatbot/></ProtectedRoute>} /> 
       
        
          

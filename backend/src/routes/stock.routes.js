@@ -1,8 +1,10 @@
 import { Router } from "express";
-import {displayStocks} from '../controllers/stocks.controller.js'
-
+import {displayStocks,trackStock,recommendStocks} from '../controllers/stocks.controller.js'
+import {verifyJWT} from '../middleware/auth.middleware.js'
 const stockRouter=Router()
 
 stockRouter.route('/stockDisplay').get(displayStocks)
+stockRouter.route('/track').post(trackStock)
+stockRouter.route('/recommend').get(verifyJWT,recommendStocks)
 
 export default stockRouter
