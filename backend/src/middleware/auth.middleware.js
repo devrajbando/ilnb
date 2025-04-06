@@ -8,6 +8,7 @@ export const verifyJWT=asyncHandler(async(req,res,next)=>{
         const token=req.cookies?.accessToken
         //  || req.header("Authorization")?.replace("Bearer ","")
         console.log(token,"token")
+        console.log(process.env.ACCESS_TOKEN_SECRET)
         if(!token)
             throw new ApiError(401,"unauthorized request")
     
@@ -19,13 +20,13 @@ export const verifyJWT=asyncHandler(async(req,res,next)=>{
             throw new ApiError(401,"Invalid access token")
         }
         req.user=user;
-        next()
+        next() 
     } catch (error) {
         throw new ApiError(401,error?.message || "invalid access token")
     }
 })
 
-
+ 
 
 export const validateToken = asyncHandler(async (req, res) => {
   // If we reach here, the JWT is valid and decoded

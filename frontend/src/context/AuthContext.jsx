@@ -5,12 +5,11 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const API_URL = import.meta.env.VITE_API_URL;
   const verifyJwtToken=async()=>
   {   
           try {
               
-              const response = await fetch(`${API_URL}/api/users/verify`, {
+              const response = await fetch("http://localhost:8000/api/users/verify", {
                   method: 'GET',
                   credentials: 'include', // Include cookies in the request
               });
@@ -20,6 +19,8 @@ export const AuthProvider = ({ children }) => {
                   console.log(data.user)
                   setUser(data.user);
               } 
+              else
+              {console.log(response)}
            
           } catch (error) {
             setUser(null);

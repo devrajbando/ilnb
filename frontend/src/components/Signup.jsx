@@ -159,19 +159,11 @@ export default function Signup() {
     }
   };
 
-  async function registerUser(event) {
-    event.preventDefault();
+  async function registerUser() {
+    
 
 
-    // if(name == '' || email =='' || password ==''){
-    //   setError('All fields must be filled');
-    //   return;
-    // }
-
-    // if(password!==confirmpass){
-    //   setError('Passwords do not match');
-    //   return;
-    // }
+    
 
     
     try {
@@ -372,7 +364,7 @@ export default function Signup() {
          <div className="max-w-4xl mx-auto p-6 rounded-lg shadow-lg">
          <h1 className="text-3xl font-bold text-center mb-6">Investment Risk Assessment</h1>
          
-         {!submitted ? (
+         {!submitted && (
            <>
              <p className="mb-6 text-gray-500">
                Please answer the following questions to help us understand your investment preferences and risk tolerance.
@@ -413,19 +405,7 @@ export default function Signup() {
                </button>
              </div>
            </>
-         ) : (
-           <div className="results-container text-center p-6 bg-blue-50 rounded-lg">
-             <h2 className="text-2xl font-bold mb-4">Your Risk Assessment Results</h2>
-             <div className="text-5xl font-bold mb-6">{score} / 30</div>
-             
-             <div className="mb-6">
-               <h3 className="text-xl font-bold mb-2">{getInvestorProfile(score).type} Investor</h3>
-               <p className="text-gray-700">{getInvestorProfile(score).description}</p>
-             </div>
-             
-             
-           </div>
-         )}
+         ) }
        </div>}
       
 

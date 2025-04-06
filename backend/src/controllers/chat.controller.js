@@ -1,13 +1,10 @@
 import { asyncHandler } from "../utils/AsyncHandler.js";
 import {ApiError} from '../utils/ApiError.js'
-import { v4 as uuidv4 } from 'uuid';
+
 import bcrypt from 'bcrypt'
 import { ApiResponse } from "../utils/ApiResponse.js";
 
-// function generateChatId(userId) {
-//   // Combine user ID with a random UUID
-//   return `${userId}_chat_${uuidv4()}`;
-// }
+
 
 function generateChatId() {
   

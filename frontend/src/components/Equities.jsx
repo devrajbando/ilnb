@@ -1,76 +1,98 @@
-import React from 'react'
-import SearchBar from './SearchBar'
-import { Binoculars ,GitCompareArrows} from 'lucide-react'
+import React, { useEffect, useState } from 'react';
+import SearchBar from './SearchBar';
+import { Binoculars, GitCompareArrows } from 'lucide-react';
+import { motion } from 'framer-motion';
+
 function Equities() {
+  const [stocks, setStocks] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStocks = async () => {
+      try {
+        const res = await fetch('http://localhost:3000/api/stock/stockDisplay');
+        const data = await res.json();
+        setStocks(data);
+      } catch (err) {
+        console.error('Error fetching stocks:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStocks();
+    return () => setStocks([]);
+  }, []);
+
   return (
-    <>
-    <div className='flex justify-center'>
-        <SearchBar/>
+    <div className="min-h-screen bg-gray-950 px-4 py-10 text-white">
+      <div className="max-w-7xl mx-auto space-y-8">
+        {/* Search */}
+        <div className="flex justify-center">
+          <SearchBar />
+        </div>
+
+        {/* Table */}
+        {loading ? (
+          <div className="text-center text-cyan-400 text-lg">Loading stocks...</div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="overflow-x-auto rounded-2xl border border-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.5)] backdrop-blur"
+          >
+            <table className="min-w-full table-auto text-sm">
+              <thead className="bg-gray-900 text-cyan-300 text-left">
+                <tr>
+                  <th className="px-4 py-3">#</th>
+                  <th className="px-4 py-3">Stock</th>
+                  <th className="px-4 py-3">Company</th>
+                  <th className="px-4 py-3">Last Close</th>
+                  <th className="px-4 py-3">Annualized Return</th>
+                  <th className="px-4 py-3">Sharpe Ratio</th>
+                  <th className="px-4 py-3">Volatility</th>
+                  <th className="px-4 py-3">Max Drawdown</th>
+                  <th className="px-4 py-3">Composite Score</th>
+                  <th className="px-4 py-3">Listing</th>
+                  <th className="px-4 py-3"></th>
+                  <th className="px-4 py-3"></th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-700">
+                {stocks.map((stock, index) => (
+                  <tr key={stock._id || index} className="hover:bg-gray-800 transition">
+                    <td className="px-4 py-3">{index + 1}</td>
+                    <td className="px-4 py-3 font-medium">{stock.Stock}</td>
+                    <td className="px-4 py-3">{stock.NAME_OF_COMPANY}</td>
+                    <td className="px-4 py-3">₹{stock.Last_Close?.toFixed(2)}</td>
+                    <td className="px-4 py-3">{(stock.Annualized_Return * 100).toFixed(2)}%</td>
+                    <td className="px-4 py-3">{stock.Sharpe_Ratio?.toFixed(3)}</td>
+                    <td className="px-4 py-3">{stock.Volatility?.toFixed(3)}</td>
+                    <td className="px-4 py-3">{(stock.Maximum_Drawdown * 100).toFixed(2)}%</td>
+                    <td className="px-4 py-3">{stock.Composite_Score_Risky?.toFixed(3)}</td>
+                    <td className="px-4 py-3">{stock.DATE_OF_LISTING}</td>
+                    <td className="px-4 py-3">
+                      <button className="text-green-400 hover:text-green-300 flex items-center gap-1">
+                        View <Binoculars size={16} />
+                      </button>
+                    </td>
+                    <td className="px-4 py-3">
+                      <button className="text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                        Compare <GitCompareArrows size={16} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </motion.div>
+        )}
+      </div>
     </div>
-    <div className="overflow-x-auto">
-  <table className="table">
-    {/* head */}
-    <thead>
-      <tr>
-        <th>
-          
-        </th>
-        <th>Company</th>
-        <th>Market Price</th>
-        <th>Close Price</th>
-        <th>Market Cap(CR)</th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {/* row 1 */}
-      <tr>
-        <th>
-          
-        </th>
-        <td>
-          <div className="flex items-center gap-3">
-            <div className="avatar">
-              <div className="mask mask-squircle h-12 w-12">
-                <img
-                  src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                
-                  alt="Avatar Tailwind CSS Component" />
-              </div>
-            </div>
-            <div>
-              <div className="font-bold">Hart Hagerty</div>
-              <div className="text-sm opacity-50">United States</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          Zemlak, Daniel and Leannon
-          <br />
-          <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
-        </td>
-        <td>Rs.1000</td>
-        <td>
-           Rs.1000
-        </td>
-        <th>
-          <button className="btn btn-ghost btn-md text-green-600">View <Binoculars/></button>
-        </th>
-        <th>
-          <button className="btn btn-ghost btn-md">Compare <GitCompareArrows/></button>
-        </th>
-      </tr>
-     
-    </tbody>
-   
-  </table>
-</div>
-    </>
-  )
+  );
 }
 
 
-export default Equities
+export default Equities;
 
