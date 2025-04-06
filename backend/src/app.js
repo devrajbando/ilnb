@@ -3,6 +3,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
 import userRouter from './routes/user.routes.js';
+import chatRouter from './routes/chat.routes.js';
 import { createServer } from 'node:http';
 
 
@@ -31,6 +32,7 @@ app.use(cookieParser())
 
 
 app.use('/api/users', userRouter);
+app.use('/api/chat', chatRouter);
 
 
 export {app}

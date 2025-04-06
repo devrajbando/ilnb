@@ -33,7 +33,8 @@ const Navbar = () => {
           
             
             {/* Primary Nav */}
-            <div className={`${user?"items-center space-x-3":"hidden"}`} >
+            {/* <div className={`${user?"items-center space-x-3":"hidden"}`} > */}
+            <div className={"items-center space-x-3"} >
                
 
                     
@@ -58,7 +59,7 @@ const Navbar = () => {
              
               
             </div>
-              <button className={`${user?"":"hidden"} py-4 px-3 md:mb-5 md:mr-24 font-medium transition duration-300 ${
+              <button className={` py-4 px-3 md:mb-5 md:mr-24 font-medium transition duration-300 ${
                       activeTab === 'dashboard'
                       ? 'text-green-500 border-b-2 border-green-500'
                       : 'text-gray-200 hover:text-green-500'
@@ -77,7 +78,8 @@ const Navbar = () => {
                 
             </div>
           <button
-  className={`mobile-menu-button p-2 ${user?"":"hidden"}`}
+  // className={`mobile-menu-button p-2 ${user?"":"hidden"}`}
+  className={`mobile-menu-button p-2`}
   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
 >
   <svg

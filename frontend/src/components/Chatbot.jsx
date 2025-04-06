@@ -159,15 +159,15 @@ const Chatbot = () => {
         </div>
       )}
   
-      {/* Toggle button */}
+     
+      {!isOpen && 
       <button
         onClick={openChat}
-        className={`mt-4 flex items-center justify-center w-14 h-14 rounded-full shadow-lg ${
-          isOpen ? '' : 'bg-green-700'
-        } text-white focus:outline-none hover:bg-green-600 transition`}
+        className={`mt-4 flex items-center bg-green-900 justify-center w-14 h-14 rounded-full shadow-lg        
+        text-white focus:outline-none hover:bg-green-600 transition`}
       >
-        {!isOpen && <Brain className="h-6 w-6" />}
-      </button>
+        <Brain className="h-6 w-6" />
+      </button>}
     </div>
   );
   

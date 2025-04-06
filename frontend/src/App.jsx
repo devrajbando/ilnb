@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 // import { Provider } from "./ui/Provider";
 import Compare from './components/Compare';
+import Chatbot from './components/Chatbot';
 import Trade from './components/Trade';
 import Signup from './components/SignUp';
 import Login from './components/Login';
@@ -28,10 +29,12 @@ function App() {
     <div className='font-inter'>
       <Router>
       {/* <Provider> */}
+      <Chatbot/>
       <Navbar/>
         <Routes>
           <Route path="/" element={<Home />} />
-   
+          
+          
           <Route path="/login" element={<Login/>} />
           <Route path="/signup" element={<Signup/>} />
 

@@ -50,7 +50,7 @@ function generateChatId() {
         });
       }
 
-})
+}) 
 
  const continueChat=asyncHandler(async(req,res)=>{
   const input =req.body.inputValue;
