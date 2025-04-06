@@ -3,23 +3,65 @@ import Candlestick from './Candlestick';
 import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
-const parameters = [
-  { name: 'Sharpe Ratio', value: 'value', info: 'Info about Sharpe Ratio' },
-  { name: 'Maximum Drawdown', value: 'value', info: 'Info about Maximum Drawdown' },
-  { name: 'Annualized Return', value: 'value', info: 'Info about Annualized Return' },
-];
-
 function Track() {
   const [selectedInfo, setSelectedInfo] = useState(null);
   const [selected, setSelected] = useState('buy');
   const [recs, setRecs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [stockDetails, setStockDetails] = useState("");
+  const [stockDetails, setStockDetails] = useState({});
   const location = useLocation();
-  console.log(location.state)
-  const { title, type } = location.state || { scheme: 'Default', type: 'stock' };
-  // console.log(scheme)
+  const { title, type } = location.state || { title: 'Default', type: 'stock' };
+
+  // Emoji functions
+  const getSharpeEmoji = (sharpe) => {
+    if (sharpe > 2) return '🚀';
+    if (sharpe > 1.5) return '📈';
+    if (sharpe > 1.0) return '👍';
+    if (sharpe > 0.5) return '😐';
+    return '⚠️';
+  };
+
+  const getReturnEmoji = (ret) => {
+    if (ret > 0.2) return '💸';
+    if (ret > 0.15) return '🔥';
+    if (ret > 0.1) return '✅';
+    if (ret > 0.05) return '🙂';
+    return '🧊';
+  };
+
+  const getVolatilityEmoji = (vol) => {
+    if (vol < 0.1) return '🧘‍♂️';
+    if (vol < 0.2) return '😌';
+    if (vol < 0.3) return '😬';
+    if (vol < 0.4) return '⚠️';
+    return '🌪️';
+  };
+
+  const parameters = [
+    {
+      name: 'Sharpe Ratio',
+      value: stockDetails.Sharpe_Ratio !== undefined
+        ? `${stockDetails.Sharpe_Ratio.toFixed(2)} ${getSharpeEmoji(stockDetails.Sharpe_Ratio)}`
+        : 'N/A',
+      info: 'Sharpe Ratio indicates risk-adjusted return.',
+    },
+    {
+      name: 'Annualized Return',
+      value: stockDetails.Annualized_Return !== undefined
+        ? `${(stockDetails.Annualized_Return * 100).toFixed(2)}% ${getReturnEmoji(stockDetails.Annualized_Return)}`
+        : 'N/A',
+      info: 'The yearly return based on past data.',
+    },
+    {
+      name: 'Volatility',
+      value: stockDetails.Volatility !== undefined
+        ? `${(stockDetails.Volatility * 100).toFixed(2)}% ${getVolatilityEmoji(stockDetails.Volatility)}`
+        : 'N/A',
+      info: 'Indicates the risk or fluctuation in returns.',
+    },
+  ];
+
   useEffect(() => {
     async function fetchTrackData() {
       setLoading(true);
@@ -28,51 +70,45 @@ function Track() {
         const response = await fetch(`http://localhost:8000/api/${type}/track`, {
           method: 'POST',
           credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ title }),
         });
 
         const data = await response.json();
-        console.log(data)
-        console.log("12345")
-        if (data === 200) {
-          setStockDetails(data.data);
+        if (data.success === true) {
+          setStockDetails(data.stockinfo);
         } else {
-          console.log(data.message || 'Failed to fetch stock details.');
+          setError('Failed to load stock details.');
         }
       } catch (err) {
-        console.log(err);
+        setError('Error fetching stock data.');
+        console.error(err);
       } finally {
         setLoading(false);
       }
     }
 
     fetchTrackData();
-  }, [type]);
+  }, [type, title]);
 
   useEffect(() => {
     async function fetchRecommendations() {
-      
       try {
         const response = await fetch(`http://localhost:8000/api/${type}/recommend`, {
           method: 'GET',
           credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
         });
+
         const data = await response.json();
-        console.log(data)
         if (data.success === true) {
           setRecs(data.stocks);
-          console.log(recs)
         } else {
           setError(data.message || 'Failed to fetch recommendations.');
         }
       } catch (err) {
-        console.log(err);
+        setError('Error fetching recommendations.');
+        console.error(err);
       }
     }
 
@@ -84,40 +120,42 @@ function Track() {
     if (!recommendations.length) {
       return <p className="text-gray-400">No recommendations available.</p>;
     }
-  
+
     return (
       <div className="bg-gray-900 rounded-xl p-4 shadow-lg">
-  <h1 className="text-white text-xl font-semibold mb-3">{title}</h1>
-  <ul className="space-y-4">
-    {recommendations.map((item, index) => (
-      <li key={index} className="flex items-center space-x-4">
-        <img
-          src={type === "stock" 
-            ? "https://images.unsplash.com/photo-1631016800696-5ea8801b3c2a?auto=format&fit=crop&w=927&q=80" 
-            : "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=927&q=80"}
-          alt={type === "stock" ? "Stock" : "Mutual Fund"}
-          className="h-20 w-20 rounded-lg object-cover"
-        />
-        <div className="flex-1">
-          <h4 className="text-lg font-medium text-gray-200">
-            {type === "stock" ? item.Stock : item.Scheme_Name}
-          </h4>
-          <p className="text-sm text-gray-400">
-            {type === "stock" ? item.NAME_OF_COMPANY : item.Fund_House}
-          </p>
-          <div className="mt-2 space-x-2">
-            <button className="px-3 py-1 bg-green-600 hover:bg-green-700 rounded-md text-sm text-white">
-              View
-            </button>
-            <button className="px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded-md text-sm text-white">
-              Compare
-            </button>
-          </div>
-        </div>
-      </li>
-    ))}
-  </ul>
-</div>
+        <h1 className="text-white text-xl font-semibold mb-3">{title}</h1>
+        <ul className="space-y-4">
+          {recommendations.map((item, index) => (
+            <li key={index} className="flex items-center space-x-4">
+              <img
+                src={
+                  type === 'stock'
+                    ? 'https://images.unsplash.com/photo-1631016800696-5ea8801b3c2a?auto=format&fit=crop&w=927&q=80'
+                    : 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=927&q=80'
+                }
+                alt={type === 'stock' ? 'Stock' : 'Mutual Fund'}
+                className="h-20 w-20 rounded-lg object-cover"
+              />
+              <div className="flex-1">
+                <h4 className="text-lg font-medium text-gray-200">
+                  {type === 'stock' ? item.Stock : item.Scheme_Name}
+                </h4>
+                <p className="text-sm text-gray-400">
+                  {type === 'stock' ? item.NAME_OF_COMPANY : item.Fund_House}
+                </p>
+                <div className="mt-2 space-x-2">
+                  <button className="px-3 py-1 bg-green-600 hover:bg-green-700 rounded-md text-sm text-white">
+                    View
+                  </button>
+                  <button className="px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded-md text-sm text-white">
+                    Compare
+                  </button>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   };
 

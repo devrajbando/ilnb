@@ -20,6 +20,18 @@ export const displayStocks= async (req, res) => {
 
   export const trackStock= asyncHandler(async(req,res)=>{
     const stock=req.body.title
+    
+    console.log(stock)
+    
+    const stockinfo = await Stock.findOne({ Stock: stock })
+    .select('Sharpe_Ratio Maximum_Drawdown Annualized_Return')
+    
+    console.log(stockinfo)
+    return res.json({
+      success: true,
+      stockinfo
+    });
+
 
   })
 
