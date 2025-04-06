@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 import React from 'react';
 import { CirclePlay, Landmark } from 'lucide-react';
 import { motion } from 'framer-motion';
+=======
+
+
+    import React from 'react';
+import { BarChart, LineChart, PieChart,CirclePlay,Landmark } from 'lucide-react';
+
+>>>>>>> be09e09025943fcd6a8dfd293b27291902a1452c
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {

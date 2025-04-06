@@ -93,4 +93,10 @@ function Equities() {
   );
 }
 
+<<<<<<< HEAD
 export default Equities;
+=======
+
+export default Equities
+
+>>>>>>> be09e09025943fcd6a8dfd293b27291902a1452c
