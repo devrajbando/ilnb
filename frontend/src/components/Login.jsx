@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
-import { Mail, Lock, User, AlertCircle } from 'lucide-react';
+import { Mail, Lock, AlertCircle } from 'lucide-react';
 export default function Signup() {
   const navigate = useNavigate();
-  const [page, setPage] = useState(1);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
  const [error, setError] = useState('');
@@ -14,20 +13,8 @@ export default function Signup() {
   async function loginUser(event) {
     event.preventDefault();
 
-
-    // if(name == '' || email =='' || password ==''){
-    //   setError('All fields must be filled');
-    //   return;
-    // }
-
-    // if(password!==confirmpass){
-    //   setError('Passwords do not match');
-    //   return;
-    // }
-
-    
     try {
-        const response = await fetch('http://localhost:8000/api/users/login', {
+        const response = await fetch('http://localhost:3000/api/users/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -70,7 +57,6 @@ export default function Signup() {
   return (
     <>
 
-      {page === 1 && (
         
   <div className="min-h-screen flex items-center justify-center  py-12 px-4 sm:px-6 lg:px-8">
         
@@ -150,88 +136,16 @@ export default function Signup() {
           >
           Submit
         </button>
-        <div>
-                    {/* <GoogleLogin
-                    clientId={clientId}
-                    buttonText="Sign in with Google"
-                    onSuccess={onSuccess}
-                    onFailure={onFailure}
-                    isSignedIn={true}
-                    /> */}
-        
-            
-                  
-                  </div>
+    
 
       
       </form>
     </div>
   </div>
          
-      )}
        
 
-    
-         {page ==2 && 
-         <div className="max-w-4xl mx-auto p-6 rounded-lg shadow-lg">
-         <h1 className="text-3xl font-bold text-center mb-6">Investment Risk Assessment</h1>
-         
-         {!submitted ? (
-           <>
-             <p className="mb-6 text-gray-500">
-               Please answer the following questions to help us understand your investment preferences and risk tolerance.
-             </p>
-             
-             <div className="space-y-10">
-               {questions.map((question) => (
-                 <div key={question.id} className="mb-8">
-                   <h3 className="text-xl font-semibold mb-4">{question.id}. {question.text}</h3>
-                   <div className="flex flex-wrap">
-                     {question.options.map((option, index) => (
-                       <button
-                         key={index}
-                         className={`${getButtonClasses(option.type)} ${answers[question.id] === option.points ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}
-                         onClick={() => handleSelect(question.id, option.points)}
-                       >
-                         {option.text}
-                       </button>
-                     ))}
-                   </div>
-                 </div>
-               ))}
-             </div>
-             
-             <div className="mt-10 flex justify-between">
-               <button 
-                 className="btn btn-outline"
-                 onClick={()=>setPage(1)}
-               >
-                 Back
-               </button>
-               <button 
-                 className="btn btn-primary"
-                 onClick={calculateScore}
-                 disabled={Object.keys(answers).length !== questions.length}
-               >
-                 Submit
-               </button>
-             </div>
-           </>
-         ) : (
-           <div className="results-container text-center p-6 bg-blue-50 rounded-lg">
-             <h2 className="text-2xl font-bold mb-4">Your Risk Assessment Results</h2>
-             <div className="text-5xl font-bold mb-6">{score} / 30</div>
-             
-             <div className="mb-6">
-               <h3 className="text-xl font-bold mb-2">{getInvestorProfile(score).type} Investor</h3>
-               <p className="text-gray-700">{getInvestorProfile(score).description}</p>
-             </div>
-             
-             
-           </div>
-         )}
-       </div>}
-      
+  
 
        
       

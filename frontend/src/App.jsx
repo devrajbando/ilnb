@@ -34,13 +34,14 @@ function App() {
           {/* <Route path="/compare" element={<ProtectedRoute><Compare /></ProtectedRoute>} />
         <Route path="/equities" element={<ProtectedRoute><Equities /></ProtectedRoute>} />
         <Route path="/track" element={<ProtectedRoute><Track /></ProtectedRoute>} />
-        <Route path="/mutualfunds" element={<ProtectedRoute><MutualFunds /></ProtectedRoute>} />
-        </Routes> */}
-          <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/mutualfunds" element={<ProtectedRoute><MutualFunds /></ProtectedRoute>} /> 
+        <Route path="/mutualfunds" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />  */}
           <Route path="/compare" element={<Compare />} />
         <Route path="/equities" element={<Equities />} />
         <Route path="/track" element={<Track />} />
-        <Route path="/mutualfunds" element={<MutualFunds />} />
+        <Route path="/mutualfunds" element={<MutualFunds />} /> 
+        <Route path="/mutualfunds" element={<Dashboard />} /> 
+         
         </Routes>
         
       <Footer/>
