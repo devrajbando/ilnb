@@ -1,23 +1,22 @@
 import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
-import { createServer } from 'node:http';
+
 import userRouter from './routes/user.routes.js';
+import { createServer } from 'node:http';
+
+
 
 
 
 const app=express()
-
 app.use(cors(
   {
-    origin:'http://localhost:5173',
-    
+    origin:['http://localhost:5173','http://localhost:5174'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
     credentials:true,
 }))
-
-
 
 
 app.use(express.json({
@@ -32,8 +31,6 @@ app.use(cookieParser())
 
 
 app.use('/api/users', userRouter);
-  
-
 
 
 export {app}

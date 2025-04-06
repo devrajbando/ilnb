@@ -1,8 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    content: ['./src/**/*.{js,jsx,ts,tsx}'], // Adjust the paths as necessary
+
+    content: [
+      "./src/**/*.{js,jsx,ts,tsx}", // make sure your paths are correct
+    ],
     theme: {
-      extend: {},
+      extend: {
+        fontFamily: {
+          inter: ['Inter', 'sans-serif'],
+        },
+      },
     },
     plugins: [require('daisyui')],
-  };
+  }
+  
+
