@@ -95,3 +95,26 @@ export const displayStocks= async (req, res) => {
       console.log(error)
     }
   })
+
+  export const searchStocks=asyncHandler(async(req,res)=>{
+    const query = req.body.query.toLowerCase();
+    console.log(query)
+    try {
+      const stocks = await Stock.find({
+        $or: [
+          { Stock: { $regex: query, $options: 'i' } },
+          { NAME_OF_COMPANY: { $regex: query, $options: 'i' } }
+        ]
+      }).limit(10); // Limit to 10 results
+ 
+      if (stocks.length === 0) {
+        return res.status(404).json({ message: 'No stocks found' });
+      }
+      res.json(stocks);
+    } catch (error) {
+      console.error('Error searching stocks:', error);
+      res.status(500).json({ message: 'Error searching stocks' });
+    }
+
+
+  })

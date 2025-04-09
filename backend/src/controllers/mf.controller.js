@@ -95,3 +95,17 @@ export const recommendMFs=asyncHandler(async(req,res)=>{
       }
     
 })
+
+export const searchMFs=asyncHandler(async(req,res)=>{
+    const query = req.body.query.toLowerCase();
+    try {
+        const funds = await MutualFund.find({
+          Scheme_Name: { $regex: query, $options: 'i' } // Case-insensitive search
+        }).limit(10); // Limit to top 5 results
+    
+        res.json(funds);
+      } catch (error) {
+        console.error('Search error:', error);
+        res.status(500).json({ message: 'Error fetching search results' });
+      }
+})

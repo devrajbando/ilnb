@@ -28,7 +28,13 @@ function MutualFunds() {
     <div className="min-h-screen bg-gray-950 px-4 py-10 text-white">
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex justify-center">
-          <SearchBar />
+        <SearchBar 
+          type="mf"
+            placeholder="Search funds or stocks..." 
+            // onResultSelect={handleSelectFund}
+            
+            debounceTime={400}
+          />
         </div>
 
         {loading ? (

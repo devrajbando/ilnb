@@ -37,7 +37,6 @@ app.use(cookieParser())
 app.use('/api/users', userRouter);
 app.use('/api/chat', chatRouter);
 app.use('/api/mf', mfRouter);
-
 app.use('/api/stock', stockRouter);
   
 export {app}

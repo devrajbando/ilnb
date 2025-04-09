@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import {Popover,Button} from '@radix-ui/themes'
 import {Brain} from 'lucide-react'
+import SearchBar from './SearchBar';
 
 function Track({openChat}) {
   const navigate = useNavigate();
@@ -17,7 +18,8 @@ function Track({openChat}) {
   const [error, setError] = useState('');
   const [stockDetails, setStockDetails] = useState("");
   const location = useLocation();
-  console.log(location.state)
+  
+
   const { title, type } = location.state || { title: 'Default', type: 'stock' };
   
   const getSharpeEmoji = (v) =>
@@ -55,11 +57,11 @@ function Track({openChat}) {
 
         
         const data = await response.json();
-        console.log(data.stockinfo)
+        
         if (data.success === true) {
           setStockDetails(data.stockinfo);
         } else {
-          console.log(data);
+          
         }
       } catch (err) {
         console.log(err);
@@ -108,10 +110,10 @@ const parameters = [
           },
         });
         const data = await response.json();
-        console.log(data.stocks)
+        
         if (data.success === true) {
           setRecs(data.stocks);
-          console.log(recs)
+          
         } else {
           setError(data.message || 'Failed to fetch recommendations.');
         }
@@ -175,6 +177,19 @@ const parameters = [
   // };
 
   return (
+    <>
+      <div className="flex justify-center basis-2/3 p-5 md:flex-row bg-gray-950 text-white">
+          <div className='w-1/3'>
+
+          <SearchBar
+          type={type}
+          placeholder="Search funds or stocks..." 
+          // onResultSelect={handleSelectFund}
+          
+          debounceTime={400}
+          />
+          </div>
+          </div>
     <div className="flex flex-col basis-2/3 md:flex-row h-screen bg-gray-950 text-white">
       {/* Chart Section */}
       {title!=='Default'?(<div className="md:basis-2/3 p-4">
@@ -193,7 +208,12 @@ const parameters = [
           )}
         </motion.div>
       </div>):(
-        <div className="flex flex-col basis-2/3 md:flex-row h-screen bg-gray-950 text-white">hello</div>
+        <div className="flex justify-center basis-2/3 mt-5 md:flex-row h-screen bg-gray-950 text-white">
+          <div className='w-1/3'>
+
+          
+          </div>
+          </div>
       )}
 
       {/* Control Panel */}
@@ -282,24 +302,7 @@ const parameters = [
 ))}
 
 
-          {/* {selectedInfo && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="bg-gray-700 rounded-xl border border-cyan-400 shadow-lg p-6 w-80">
-                <div className='flex justify-between mb-5'>
-
-                <h3 className="text-lg font-bold">Info</h3>
-                <button
-                  onClick={() => setSelectedInfo(null)}
-                  className=" text-green-400 hover:text-red-600 font-semibold"
-                >
-                  X
-                </button>
-                </div>
-                <p className="text-sm">{selectedInfo}</p>
-                <button className='btn btn-success btn-sm mt-3'>Ask AI</button>
-              </div>
-            </div>
-          )} */}
+         
         </div> 
         </>
       )}
@@ -310,6 +313,7 @@ const parameters = [
         {renderRecommendations(5, 10, 'Highest Returns')}
       </div>
     </div>
+    </>
   );
 }
 

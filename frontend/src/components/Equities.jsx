@@ -29,7 +29,13 @@ function Equities() {
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Search */}
         <div className="flex justify-center">
-          <SearchBar />
+        <SearchBar 
+          type="stock"
+            placeholder="Search funds or stocks..." 
+            // onResultSelect={handleSelectFund}
+            
+            debounceTime={400}
+          />
         </div>
 
         {/* Table */}
