@@ -1,16 +1,23 @@
 import google.generativeai as genai
-from flask import Flask, request, jsonify,current_app
+from flask import Flask, request, jsonify
+import os
+
 
 app = Flask(__name__)
+# Don't hardcode API keys in the code
+api_key = os.environ.get('GEMINI_API_KEY')
 
-genai.configure(api_key="AIzaSyAljRC428A-Epl9Vjkgz098gZhkw-C0pG0")
+if not api_key:
+    raise ValueError("Missing GEMINI_API_KEY environment variable")
+
+genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-1.5-flash-latest")
 
 PREDEFINED_TOPICS = {
-    "Explain_sharpe": "You're a financial advisor. Explain what sharpe ratio are, how they work, and when they are ideal for investment.",
-    "2 ": "You're a finance expert. Teach the user about volatility",
- 
-
+    "Risk": "You're a financial advisor. Explain what the Sharpe Ratio is, how it helps assess investment risk, and when it's useful. Briefly describe what different ranges of Sharpe Ratios mean, using simple examples. Keep it short and easy to understand for someone with no financial background — 2 to 3 sentences, no jargon.",
+    "Stability": "You're a financial advisor. Explain what Maximum Drawdown means, how it shows investment stability, and when it matters. Give a simple example to show how different drawdown values affect investment decisions. Use plain language for someone without financial knowledge — max 2 to 3 sentences, no jargon.",
+    "One year Return": "You're a financial advisor. Explain what Annualized Return means, how it works, and why it's important for investors. Include a basic example of how different return values might impact someone's investment. Keep it very simple, short (2 to 3 sentences), and avoid financial jargon.",
+    "": "You are a financial advisor. In the following conversation, you will be asked to explain financial concepts in a simple and easy-to-understand manner. Your explanations should be concise, using plain language and avoiding jargon. Please keep your responses short, ideally 2 to 3 sentences. Answer all of the user's inputs in the context of finance, stocks mutual funds and investments. If the user asks for a definition, provide a clear and simple explanation. If the user asks for an example, give a straightforward example that illustrates the concept. If the user asks for a comparison, highlight the key differences or similarities between the two concepts in a simple way. If the user asks for advice, provide general guidance without specific recommendations. If the user asks for a summary, give a brief overview of the main points.",
 }
 
 chat_sessions = {}
@@ -21,58 +28,59 @@ def start_topic():
         data = request.get_json()
         if not data:
             return jsonify({"error": "No JSON data provided"}), 400
-        
-        user_input = data.get('input')
-        chat_id = data.get('newChatId')
-        print("ihihhi")
-        topic_name = data.get('topic')
 
-        # if not chat_id:
-        #     return jsonify({"error": "Chat ID is required"}), 400
-        
-        # # If topic is provided, prepend the predefined prompt
-        # if topic_name and topic_name in PREDEFINED_TOPICS:
-        #     user_input = f"{PREDEFINED_TOPICS[topic_name]}\n{user_input}"
+        topic_name = data.get('input', "")
+        chat_id = data.get('newChatId')
+ 
+        if topic_name not in PREDEFINED_TOPICS:
+            return jsonify({"error": "Invalid topic name"}), 400
+        if not chat_id:
+            return jsonify({"error": "Chat ID is required"}), 400
+
+        pre_prompt = PREDEFINED_TOPICS[topic_name]
+
+        print(pre_prompt)
+        print(chat_id)
 
         chat = model.start_chat(history=[])
-        print("1234")
-        
-        response = chat.send_message(user_input) 
-        print("45678")
+        response = chat.send_message(pre_prompt)
+
         chat_sessions[chat_id] = chat
-        print("9999")
-        
-        
+
         return jsonify({
             "response": response.text,
             "chat_id": chat_id
         })
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 @app.route('/main/continue', methods=['POST'])
 def continue_chat():
-    message = request.get_json()
-    print(message)
-    if not message:
+    try:
+        data = request.get_json()
+        if not data:
             return jsonify({"error": "No JSON data provided"}), 400
-    
-    user_input = message.get('input')
-    chat_id = message.get('chatId')
-    print(chat_id)
-    chat = chat_sessions[chat_id]
-    response = chat.send_message(user_input) 
-    
-    
-    return jsonify({"response": response.text})
+ 
+        user_input = data.get('input')
+        chat_id = data.get('chatId')
 
+        print(chat_id)
+        if not user_input:
+            return jsonify({"error": "Input message is required"}), 400
+        if not chat_id:
+            return jsonify({"error": "Chat ID is required"}), 400
+        print('hi2')
+        if chat_id not in chat_sessions:
+            return jsonify({"error": "Invalid or expired chat ID"}), 400
 
-# ✅ Manual test
+        chat = chat_sessions[chat_id]
+        response = chat.send_message(user_input)
+
+        return jsonify({"response": response.text})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5020, debug=True)
-    print(start_topic("Explain_sharpe", user_id="test_user"))
-    while True:
-        msg = input("You: ")
-        if msg.lower() == "exit":
-            break
-        print("Bot:", continue_chat(msg, user_id="test_user"))

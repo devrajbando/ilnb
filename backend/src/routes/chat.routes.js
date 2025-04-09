@@ -13,10 +13,10 @@ const chatRouter = Router();
 
 
 chatRouter.route("/start").post(
-    // verifyJWT, 
+    verifyJWT, 
     startChat);
 chatRouter.route("/continue").post(
-    // verifyJWT, 
+    verifyJWT, 
     continueChat);
 
 export default chatRouter

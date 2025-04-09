@@ -38,16 +38,7 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Social Links */}
-          <div>
-            <h4 className="font-semibold text-lg mb-4">Follow Us</h4>
-            <div className="flex space-x-4 text-gray-400">
-              <a href="#" className="hover:text-cyan-400 transition"><Facebook size={20} /></a>
-              <a href="#" className="hover:text-cyan-400 transition"><Twitter size={20} /></a>
-              <a href="#" className="hover:text-cyan-400 transition"><Instagram size={20} /></a>
-              <a href="#" className="hover:text-cyan-400 transition"><Linkedin size={20} /></a>
-            </div>
-          </div>
+          
         </div>
 
         {/* Bottom Footer */}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import {Binoculars} from 'lucide-react';
 import { useNavigate } from "react-router-dom";
+import {Tabs,Box,Text} from '@radix-ui/themes';
 function Dashboard() {
   const [selected, setSelected] = useState('Equities');
   const { user } = useAuthContext();
@@ -69,7 +70,7 @@ function Dashboard() {
   const goToMF = (scheme) => {
     navigate('/track', { state: { title: scheme, type: "mf" } });
   }
-  const renderEquities = () =>{
+  const RenderEquities = () =>{
     return (
       <div className="min-h-screen bg-gray-950 px-4 py-10 text-white">
         <div className="max-w-7xl mx-auto space-y-8">
@@ -140,7 +141,7 @@ function Dashboard() {
   }
 
 
-  const renderMutualFunds = () =>
+  const RenderMutualFunds = () =>
   {
     return (
       <div className="min-h-screen bg-gray-950 px-4 py-10 text-white">
@@ -211,13 +212,11 @@ function Dashboard() {
     );
   }
    
-      
-      
-
+ 
   return (
-    <div className="flex min-h-screen bg-gray-900 text-white">
+    <div className="flex flex-col self-center justify-centermin-h-screen bg-gray-900 text-white">
       {/* Sidebar */}
-      <div className="basis-1/4 p-6 bg-gray-800 border-r border-gray-700">
+      {/* <div className="basis-1/4 p-6 bg-gray-800 border-r border-gray-700">
         <h2 className="text-xl font-bold mb-4">Portfolio</h2>
         <ul className="space-y-4">
           {['Equities', 'Mutual Funds'].map((item) => (
@@ -233,21 +232,33 @@ function Dashboard() {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
 
-      {/* Main Display */}
-      <div className="basis-3/4 p-8">
-        <h1 className="text-3xl font-bold mb-6">Your {selected}</h1>
-        {loading ? (
-          <div className="text-center text-gray-400">Loading...</div>
-        ) : error ? (
-          <div className="text-center text-red-500">{error}</div>
-        ) : selected === 'Equities' ? (
-          renderEquities()
-        ) : (
-          renderMutualFunds()
-        )}
-      </div>
+<Tabs.Root defaultValue="stocks" >
+  
+
+	<Tabs.List color='cyan'>
+		<Tabs.Trigger value="stocks"><h1 className="text-white">Equities</h1></Tabs.Trigger>
+		<Tabs.Trigger value="funds"><h1 className="text-white">Mutual Funds</h1></Tabs.Trigger>
+		
+	</Tabs.List>
+ 
+
+	<Box pt="3">
+		<Tabs.Content value="stocks">
+			{/* <Text size="2">Make changes to your account.</Text> */}
+      <RenderEquities/>
+		</Tabs.Content>
+
+		<Tabs.Content value="funds">
+			<RenderMutualFunds/>
+		</Tabs.Content>
+
+		
+	</Box>
+</Tabs.Root>
+
+    
     </div>
   );
 }

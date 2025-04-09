@@ -14,7 +14,7 @@ const navItems = [
 
 const Navbar = () => {
   const { user } = useAuthContext();
-  const [activeTab, setActiveTab] = useState('track');
+  const [activeTab, setActiveTab] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <div className={`${user?"":"hidden"} hidden md:flex items-center space-x-6`}>
+        <div className={`${user?"hidden md:flex":"hidden"}  items-center space-x-6`}>
           {navItems.map((item) => (
             <button
               key={item.id}

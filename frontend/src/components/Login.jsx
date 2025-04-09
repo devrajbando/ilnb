@@ -41,7 +41,7 @@ export default function Login() {
                 setUser(data.data.user)
                 alert('Login successful');
 
-                navigate('/track');
+                navigate('/');
             } else {
                 setError('Please check your username and password');
             }

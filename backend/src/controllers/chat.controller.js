@@ -5,7 +5,6 @@ import bcrypt from 'bcrypt'
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 
-
 function generateChatId() {
   
   const randomPart = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
@@ -17,16 +16,16 @@ function generateChatId() {
     const input =req.body.inputValue;
     // const userId=req.user._id 
     
-    const userId = "user_123456";
+    const userId = "user_123456"; 
     const newChatId = generateChatId();
     console.log("hi") 
     // Function to generate a chat ID for a specific user  
-
+    console.log(req.user)
     try {
         const response = await fetch('http://127.0.0.1:5020/main/start', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json',    
           },
           body: JSON.stringify({ 
             input,newChatId
@@ -36,7 +35,9 @@ function generateChatId() {
               throw new Error('Error with Flask API response');
           }
           const data = await response.json();
-          console.log(data)
+          console.log(data) 
+          if(input=='')res.json({response:`Hello ${req.user.name}! How can I help you?`,chat_id:newChatId});
+
           res.json(data);
       } catch (error) {
           console.error(error);
@@ -52,6 +53,7 @@ function generateChatId() {
  const continueChat=asyncHandler(async(req,res)=>{
   const input =req.body.inputValue;
   const chatId = req.body.chatId;
+  console.log(chatId)
   try {
     const response = await fetch('http://127.0.0.1:5020/main/continue', {
       method: 'POST',

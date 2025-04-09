@@ -18,13 +18,17 @@ export const displayFunds= async (req, res) => {
 
 export const trackMF= asyncHandler(async(req,res)=>{
     const stock=req.body.title
-    const stockinfo = await MutualFund.findOne({ Stock: stock })
+    const stockinfo = await MutualFund.findOne({ Scheme_Name: stock })
     .select('Sharpe_Ratio Maximum_Drawdown Annualized_Return')
 
+  
+    
     res.json({
       success: true,
       stockinfo,
     });
+
+
 })
 
 export const recommendMFs=asyncHandler(async(req,res)=>{
