@@ -10,7 +10,7 @@ export const displayStocks= async (req, res) => {
 
       try {
         const stocks = await Stock.find().limit(50);
-        console.log(stocks) // Limit or paginate
+        // Limit or paginate
         res.status(200).json(stocks);
       } catch (err) {
         console.log(err)
@@ -21,12 +21,12 @@ export const displayStocks= async (req, res) => {
   export const trackStock= asyncHandler(async(req,res)=>{
     const stock=req.body.title
     
-    console.log(stock)
+    
     
     const stockinfo = await Stock.findOne({ Stock: stock })
     .select('Sharpe_Ratio Maximum_Drawdown Annualized_Return')
     
-    console.log(stockinfo)
+    
     return res.json({
       success: true,
       stockinfo
@@ -98,7 +98,7 @@ export const displayStocks= async (req, res) => {
 
   export const searchStocks=asyncHandler(async(req,res)=>{
     const query = req.body.query.toLowerCase();
-    console.log(query)
+    
     try {
       const stocks = await Stock.find({
         $or: [

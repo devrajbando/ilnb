@@ -34,7 +34,7 @@ const registerUser=asyncHandler(async(req,res)=>{
             password,
             score
         }=req.body;
-            console.log(req.body)
+            
     
     
             const existedUser=await User.findOne({
