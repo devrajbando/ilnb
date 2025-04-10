@@ -35,7 +35,8 @@ function SearchBar({ type, placeholder, debounceTime = 300 }) {
 
     setLoading(true); // Set loading to true before starting the search
     try {
-      const response = await fetch(`http://localhost:8000/api/${type}/search`, {
+      const apiUrl = import.meta.env.VITE_BACKEND_URL
+              const response = await fetch(`${apiUrl}/api/${type}/search`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

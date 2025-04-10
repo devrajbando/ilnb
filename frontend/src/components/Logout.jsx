@@ -22,7 +22,8 @@ const SignOut = () => {
     }
 
     try {
-        const response = await fetch(`http://localhost:8000/api/users/logout`, {
+      const apiUrl = import.meta.env.VITE_BACKEND_URL
+      const response = await fetch(`${apiUrl}/api/users/logout`, {
             method: 'POST',
             credentials: 'include', // Include cookies in the request
             headers: {

@@ -154,7 +154,8 @@ export default function Signup() {
   async function registerUser() {
 
     try {
-        const response = await fetch('http://localhost:8000/api/users/signup', {
+      const apiUrl = import.meta.env.VITE_BACKEND_URL
+      const response = await fetch(`${apiUrl}/api/users/signup`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

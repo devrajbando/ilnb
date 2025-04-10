@@ -3,14 +3,7 @@ import { useState } from 'react'
 import { Brain, X } from 'lucide-react'
 import Chatbot from './Chatbot'
 function Chatbutton({isOpen, openChat, closeChat}) {
-    // const [isOpen, setIsOpen] = useState(false);
-    // const [prePrompt, setPrePrompt] = useState('');
-    // const openChat = () => {
-    //     setIsOpen(true);
-    // };
-    // const closeChat = () => {
-    //     setIsOpen(false);
-    // };
+   
   return (
     <>
     <button
@@ -19,8 +12,6 @@ function Chatbutton({isOpen, openChat, closeChat}) {
     >
     {!isOpen ? <Brain className="h-6 w-6" /> : <X className="h-6 w-6" />}
   </button>
-
-  {/* {isOpen && <Chatbot prePrompt={prePrompt} />} */}
       </>
   )
 }

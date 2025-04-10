@@ -10,7 +10,8 @@ function MutualFunds() {
   useEffect(() => {
     const fetchFunds = async () => {
       try {
-        const res = await fetch('http://localhost:8000/api/mf/mfDisplay'); // update if needed
+        const apiUrl = import.meta.env.VITE_BACKEND_URL
+              const res = await fetch(`${apiUrl}/api/mf/mfDisplay`)
         const data = await res.json();
         setFunds(data);
       } catch (err) {

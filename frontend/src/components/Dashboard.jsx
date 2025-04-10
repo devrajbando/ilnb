@@ -18,7 +18,8 @@ function Dashboard() {
 
       try {
         // Fetch stocks
-        const stockResponse = await fetch('http://localhost:8000/api/users/stocks', {
+        const apiUrl = import.meta.env.VITE_BACKEND_URL
+              const response = await fetch(`${apiUrl}/api/users/stocks`, {
           method: 'POST',
           credentials: 'include', // Include cookies in the request
           headers: {
@@ -39,7 +40,8 @@ function Dashboard() {
 
       try {
         // Fetch mutual funds
-        const mfResponse = await fetch('http://localhost:8000/api/users/mutualfunds', {
+        const apiUrl = import.meta.env.VITE_BACKEND_URL
+              const response = await fetch(`${apiUrl}/api/users/mutualfunds`, {
           method: 'POST',
           credentials: 'include', // Include cookies in the request
           headers: {

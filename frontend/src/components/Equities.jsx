@@ -10,7 +10,8 @@ function Equities() {
   useEffect(() => {
     const fetchStocks = async () => {
       try {
-        const res = await fetch('http://localhost:8000/api/stock/stockDisplay');
+        const apiUrl = import.meta.env.VITE_BACKEND_URL
+              const res = await fetch(`${apiUrl}/api/stock/stockDisplay`)
         const data = await res.json();
         setStocks(data);
       } catch (err) {

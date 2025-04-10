@@ -46,7 +46,8 @@ function Track({openChat}) {
       setLoading(true);
       setError('');
       try {
-        const response = await fetch(`http://localhost:8000/api/${type}/track`, {
+        const apiUrl = import.meta.env.VITE_BACKEND_URL
+              const response = await fetch(`${apiUrl}/api/${type}/track`, {
           method: 'POST',
           credentials: 'include',
           headers: {
@@ -102,7 +103,8 @@ const parameters = [
     async function fetchRecommendations() {
       
       try {
-        const response = await fetch(`http://localhost:8000/api/${type}/recommend`, {
+        const apiUrl = import.meta.env.VITE_BACKEND_URL
+              const response = await fetch(`${apiUrl}/api/${type}/recommend`, {
           method: 'GET',
           credentials: 'include',
           headers: {
@@ -171,10 +173,7 @@ const parameters = [
     );
   };
 
-  // const openChatBot = (info) => {
-  //   setPrePrompt(info); // Set the prePrompt string
-  //   setIsChatbotOpen(true); // Open the chatbot
-  // };
+  
 
   return (
     <>

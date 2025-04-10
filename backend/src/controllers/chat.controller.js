@@ -33,7 +33,7 @@ let chatId;
     chatId=newChatId
     console.log("hi") 
     // Function to generate a chat ID for a specific user  
-    
+     
     
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });

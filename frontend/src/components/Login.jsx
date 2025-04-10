@@ -14,7 +14,8 @@ export default function Login() {
     event.preventDefault();
 
     try {
-        const response = await fetch('http://localhost:8000/api/users/login', {
+        const apiUrl = import.meta.env.VITE_BACKEND_URL
+              const response = await fetch(`${apiUrl}/api/users/login`, {
           method: 'POST',
           credentials: 'include', // Include cookies in the request
           headers: {

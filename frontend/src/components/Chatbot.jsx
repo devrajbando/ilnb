@@ -10,7 +10,8 @@ const Chatbot = ({ prePrompt, onClose }) => {
   useEffect(() => {
     const startChat = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/chat/start', {
+        const apiUrl = import.meta.env.VITE_BACKEND_URL
+              const response = await fetch(`${apiUrl}/api/chat/start`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -42,7 +43,8 @@ const Chatbot = ({ prePrompt, onClose }) => {
     setMessages([...messages, newUserMessage]);
 
     try {
-      const response = await fetch('http://localhost:8000/api/chat/continue', {
+      const apiUrl = import.meta.env.VITE_BACKEND_URL
+              const response = await fetch(`${apiUrl}/api/chat/continue`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -8,8 +8,8 @@ export const AuthProvider = ({ children }) => {
   const verifyJwtToken=async()=>
   {   
           try {
-              
-              const response = await fetch("http://localhost:8000/api/users/verify", {
+            const apiUrl = import.meta.env.VITE_BACKEND_URL
+              const response = await fetch(`${apiUrl}/api/users/verify`, {
                   method: 'GET',
                   credentials: 'include', // Include cookies in the request
               });

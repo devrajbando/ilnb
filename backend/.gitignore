@@ -62,6 +62,9 @@ web_modules/
 # Optional stylelint cache
 .stylelintcache
 
+#package-lock.json
+package-lock.json
+
 # Microbundle cache
 .rpt2_cache/
 .rts2_cache_cjs/
