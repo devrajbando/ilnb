@@ -37,10 +37,10 @@ function Track({openChat}) {
   const getReturnColor = (v) =>
     v > 20 ? "text-green-600" : v > 10 ? "text-yellow-500" : "text-muted-foreground";
 
-  if(title!='Default'){
-
-
   useEffect(() => {
+      if(title=='Default')return
+
+
     async function fetchTrackData() {
       
       setLoading(true);
@@ -74,7 +74,7 @@ function Track({openChat}) {
 
     fetchTrackData();
   }, [type,title]);
-}
+
 const parameters = [
   {
     name: 'Risk',
@@ -125,7 +125,7 @@ const parameters = [
     }
 
     fetchRecommendations();
-  }, [type,title]);
+  }, [type]);
 
   const renderRecommendations = (startIndex, endIndex, title) => {
     const recommendations = recs.slice(startIndex, endIndex);
@@ -139,13 +139,13 @@ const parameters = [
   <ul className="space-y-4">
     {recommendations.map((item, index) => (
       <li key={index} className="flex items-center space-x-4">
-        <img
+        {/* <img
           src={type === "stock" 
             ? "https://images.unsplash.com/photo-1631016800696-5ea8801b3c2a?auto=format&fit=crop&w=927&q=80" 
             : "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=927&q=80"}
           alt={type === "stock" ? "Stock" : "Mutual Fund"}
           className="h-20 w-20 rounded-lg object-cover"
-        />
+        /> */}
         <div className="flex-1">
           <h4 className="text-lg font-medium text-gray-200">
             {type === "stock" ? item.Stock : item.Scheme_Name}
