@@ -63,8 +63,8 @@ export default function Login() {
     <>
 
         
-  <div className="min-h-screen flex items-start bg-gray-800 justify-center  py-12 px-4 sm:px-6 lg:px-8">
-        
+  <div className="min-h-screen flex items-start justify-center  py-12 px-4 sm:px-6 lg:px-8">
+  
     <div className="max-w-md w-full space-y-8 bg-gray-900 p-8 rounded-lg shadow-md">
       {/* Header */}
       <div className="text-center">

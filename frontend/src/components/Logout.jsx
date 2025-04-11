@@ -61,10 +61,10 @@ const SignOut = () => {
   
 
   return (
-    <div className="min-h-screen bg-gray-800 flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4">
       <div className="bg-gray-900 shadow-md rounded-lg w-full max-w-md p-8">
         <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-100 mb-2">Sign Out Confirmation</h2>
+          <h2 className="text-2xl font-bold text-gray-100 mb-2">Sign Out <span className='text-green-700'>Confirmation</span></h2>
           <p className="text-gray-400">Please confirm your credentials to sign out</p>
         </div>
 
@@ -99,7 +99,7 @@ const SignOut = () => {
           <div className="flex flex-col space-y-4">
             <button
               type="submit"
-              className="w-full bg-blue-950 text-white py-3 rounded-lg hover:bg-blue-900 transition-colors"
+              className="w-full bg-green-700 text-white py-3 rounded-lg hover:bg-blue-900 transition-colors"
             >
               Confirm Sign Out
             </button>
