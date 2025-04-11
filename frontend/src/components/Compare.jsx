@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown,Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
@@ -84,7 +84,15 @@ function Compare() {
   }, [second])
   
    if (loading) {
-    return <div className="text-center py-10 text-lg">⏳ Loading comparison...</div>;
+    return (
+      <>
+      <div className="flex flex-col items-center justify-center py-12 px-4 space-y-4">
+      <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
+      <p className="text-lg font-medium text-gray-200">Loading comparison...</p>
+      <p className="text-sm text-gray-500">This may take a moment</p>
+    </div>
+      </>
+    )
   }
 
 

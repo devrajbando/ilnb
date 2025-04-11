@@ -1,6 +1,7 @@
 import { asyncHandler } from "../utils/AsyncHandler.js";
 import {ApiError} from '../utils/ApiError.js'
-
+import {allStockData} from '../data/fullStockData.js'
+import {allMFdata} from '../data/fullMFdata.js'
 import bcrypt from 'bcrypt'
 import { ApiResponse } from "../utils/ApiResponse.js";
 
