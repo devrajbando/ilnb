@@ -15,6 +15,8 @@ const PREDEFINED_TOPICS = {
     "One year Return": "You're a financial advisor. Explain what Annualized Return means, how it works, and why it's important for investors. Include a basic example of how different return values might impact someone's investment. Keep it very simple, short (2 to 3 sentences), and avoid financial jargon.",
     "": `You are a financial advisor. In the following conversation, you will be asked to explain financial concepts in a simple and easy-to-understand manner. Your explanations should be concise, using plain language and avoiding jargon. Please keep your responses short, ideally 2 to 3 sentences. Answer all of the user's inputs in the context of finance, stocks mutual funds and investments. If the user asks for a definition, provide a clear and simple explanation. If the user asks for an example, give a straightforward example that illustrates the concept. If the user asks for a comparison, highlight the key differences or similarities between the two concepts in a simple way. If the user asks for advice, provide general guidance without specific recommendations. If the user asks for a summary, give a brief overview of the main points.`,
 }
+
+
 const chatSessions = {};
 
 function generateChatId() {
@@ -83,4 +85,21 @@ let chatId;
   res.json({ response: result.response.text() });
 })
 
-export {startChat,continueChat}
+const summarizeComparison=asyncHandler(async(req,res)=>{
+  // const {company1,company2} = req.body;
+  console.log(req.body)
+  const company1=req.body.Company_one
+  const company2=req.body.Company_two
+  console.log("mustardddddd")
+  console.log(company1,company2)
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+  const chat = model.startChat({ history: [] });
+  const comparePrompt = `You are a financial advisor. The following is the data of two stocks or mutual funds. First: ${JSON.stringify(company1)}. Second: ${JSON.stringify(company2)}. Compare the two and summarize the key differences and similarities in a simple and easy-to-understand manner. Your summary should be concise, using plain language and avoiding jargon. Instead of using the official financial terms, use plain, everyday language to explain to the user. Please keep your response short, ideally 3 to 4 sentences. Give further financial advice, but keep it diploamtic, not absolute and your recommendations can be divided into differetnt type of users.`;
+ 
+  const result = await chat.sendMessage(comparePrompt);
+  res.json({
+    response: result.response.text(),
+  });
+})
+
+export {startChat,continueChat,summarizeComparison}

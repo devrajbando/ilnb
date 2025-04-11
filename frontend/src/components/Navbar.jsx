@@ -1,30 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 
 import logo from '../assets/logo.png';
 import { LayoutDashboard, Menu, X ,LogOut} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
-
+import { useLocation } from "react-router-dom";
 const navItems = [
   { id: 'track', label: 'Track' },
   { id: 'compare', label: 'Compare' },
   { id: 'equities', label: 'Equities' },
   { id: 'mutualfunds', label: 'Mutual Funds' },
 ];
-
 const Navbar = () => {
   const { user } = useAuthContext();
   const [activeTab, setActiveTab] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const location = useLocation();
+  useEffect(() => {
+    
+    const currentPath = location.pathname.split('/')[1];
+  
+    setActiveTab(currentPath || '');
+  }, [location])
+  
   const navigate = useNavigate();
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
 
     navigate(`/${tabId}`);
     setIsMobileMenuOpen(false);
-
-
   };
   
   return (

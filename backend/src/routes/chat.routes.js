@@ -4,7 +4,7 @@ import { Router } from "express";
 
 import { verifyJWT } from "../middleware/auth.middleware.js";
 
-import { startChat ,continueChat } from "../controllers/chat.controller.js";
+import { startChat ,continueChat, summarizeComparison } from "../controllers/chat.controller.js";
 
 
        
@@ -18,5 +18,8 @@ chatRouter.route("/start").post(
 chatRouter.route("/continue").post(
     verifyJWT, 
     continueChat);
+chatRouter.route("/summary").post(
+    verifyJWT, 
+    summarizeComparison);
 
 export default chatRouter

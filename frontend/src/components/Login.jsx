@@ -59,20 +59,16 @@ export default function Login() {
     
   }
 
-
-
- 
-
   return (
     <>
 
         
-  <div className="min-h-screen flex items-center justify-center  py-12 px-4 sm:px-6 lg:px-8">
+  <div className="min-h-screen flex items-start bg-gray-800 justify-center  py-12 px-4 sm:px-6 lg:px-8">
         
     <div className="max-w-md w-full space-y-8 bg-gray-900 p-8 rounded-lg shadow-md">
       {/* Header */}
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-white-900">Login to your account</h2>
+        <h2 className="text-3xl font-bold text-white">Login to your account</h2>
         <p className="mt-2 text-sm text-gray-400">
           Don't have an account?{' '}
           <Link to="/signup" className="font-medium text-green-600 hover:text-green-900">
@@ -93,7 +89,7 @@ export default function Login() {
 
       {/* Form */}
       <form className="mt-8 space-y-6" onSubmit={(event)=>loginUser(event)}>
-        <div className="space-y-4">
+        <div className="space-y-4 text-white">
           {/* Email Input */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-100">

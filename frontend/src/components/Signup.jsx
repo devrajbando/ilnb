@@ -197,6 +197,9 @@ export default function Signup() {
 
   return (
     <>
+    <div className='bg-gray-800'>
+
+   
       <div className='flex flex-col justify-center items-center'>
         <h1 className='text-center text-white text-5xl font-bold my-5'><span className='text-green-700'>INLB</span> Financial Services</h1>
         
@@ -204,12 +207,12 @@ export default function Signup() {
 
       {page === 1 && (
         
-  <div className="min-h-screen flex items-center justify-center  py-12 px-4 sm:px-6 lg:px-8">
+  <div className="min-h-screen flex items-start justify-center  py-12 px-4 sm:px-6 lg:px-8">
         
     <div className="max-w-md w-full space-y-8 bg-gray-900 p-8 rounded-lg shadow-md">
       {/* Header */}
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-white-900">Create an account</h2>
+        <h2 className="text-3xl font-bold text-white">Create an account</h2>
         <p className="mt-2 text-sm text-gray-400">
           Already have an account?{' '}
           <Link to="/login" className="font-medium text-green-600 hover:text-green-900">
@@ -230,7 +233,7 @@ export default function Signup() {
 
       {/* Form */}
       <form className="mt-8 space-y-6" onSubmit={()=>setPage(2)}>
-        <div className="space-y-4">
+        <div className="space-y-4 text-white">
           {/* Email Input */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-100">
@@ -395,7 +398,7 @@ export default function Signup() {
       
 
        
-      
+       </div>
     </>
   );
 }

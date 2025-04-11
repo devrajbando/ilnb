@@ -24,7 +24,7 @@ export const displayStocks= async (req, res) => {
     
     
     const stockinfo = await Stock.findOne({ Stock: stock })
-    .select('Sharpe_Ratio Maximum_Drawdown Annualized_Return')
+    .select('Sharpe_Ratio Maximum_Drawdown Annualized_Return NAME_OF_COMPANY Return_in_Last_Year Volatility Composite_Score_Risky')
     
     
     return res.json({

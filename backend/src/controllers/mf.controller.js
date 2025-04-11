@@ -19,9 +19,9 @@ export const displayFunds= async (req, res) => {
 export const trackMF= asyncHandler(async(req,res)=>{
     const stock=req.body.title
     const stockinfo = await MutualFund.findOne({ Scheme_Name: stock })
-    .select('Sharpe_Ratio Maximum_Drawdown Annualized_Return')
+    .select('Sharpe_Ratio Maximum_Drawdown Annualized_Return Scheme_Name Fund_House Return_in_Last_Year Volatility Composite_Score_Risky')
 
-  
+  console.log(stockinfo)
     
     res.json({
       success: true,

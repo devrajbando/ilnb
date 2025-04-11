@@ -1,11 +1,14 @@
 
 import React from 'react';
-import { BarChart, LineChart, PieChart,CirclePlay,Landmark,LayoutDashboard,Brain,Figma } from 'lucide-react';
+import { FeaturesSection } from './Features';
 import { motion } from 'framer-motion';
 import { useNavigate } from "react-router-dom";
 import Stocks from '../assets/white stocks.svg';
 import Analyse from '../assets/analysis.svg';
 import { useAuthContext } from '../hooks/useAuthContext';
+
+
+// import { title } from 'process';
 const Home = () => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
@@ -71,85 +74,8 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4">
-  <motion.h2 
-    initial={{ opacity: 0, y: 20 }} 
-    whileInView={{ opacity: 1, y: 0 }} 
-    transition={{ duration: 0.5 }} 
-    viewport={{ once: true }}
-    className="text-4xl font-bold text-center text-green-400 mb-16"
-  >
-    Why Choose Us
-  </motion.h2>
-
-  <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto'>
-
-    {/* Feature 1: Automatic Portfolio Tracking */}
-    <motion.div 
-      initial={{ opacity: 0, y: 30 }} 
-      whileInView={{ opacity: 1, y: 0 }} 
-      transition={{ duration: 0.4, delay: 0 * 0.2 }} 
-      viewport={{ once: true }}
-      whileHover={{ scale: 1.05 }}
-      className="bg-green-950 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 text-white text-center"
-    >
-      <Landmark className='mx-auto h-20 text-green-400 mb-4 animate-bounce-slow' />
-      <h3 className="text-2xl font-semibold mb-2">Automatic Portfolio Tracking</h3>
-      <p className="text-gray-400">
-        Tired of juggling multiple investment apps? View holdings from Zerodha, MF Central, and more — all in one glance, like PhonePe for stocks.
-      </p>
-    </motion.div>
-
-    {/* Feature 2: Smart AI-Powered Comparison Tool */}
-    <motion.div 
-      initial={{ opacity: 0, y: 30 }} 
-      whileInView={{ opacity: 1, y: 0 }} 
-      transition={{ duration: 0.4, delay: 1 * 0.2 }} 
-      viewport={{ once: true }}
-      whileHover={{ scale: 1.05 }}
-      className="bg-green-950 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 text-white text-center"
-    >
-      <Brain className='mx-auto h-20 text-green-400 mb-4 animate-bounce-slow' />
-      <h3 className="text-2xl font-semibold mb-2">AI-Powered Comparison Tool</h3>
-      <p className="text-gray-400">
-        Like Netflix recommends shows, our AI suggests better funds and stocks. See ratings, risk meters 🟡, and smart "Switch Now?" prompts.
-      </p>
-    </motion.div>
-
-    {/* Feature 3: One Dashboard for Tracking + Execution */}
-    <motion.div 
-      initial={{ opacity: 0, y: 30 }} 
-      whileInView={{ opacity: 1, y: 0 }} 
-      transition={{ duration: 0.4, delay: 2 * 0.2 }} 
-      viewport={{ once: true }}
-      whileHover={{ scale: 1.05 }}
-      className="bg-green-950 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 text-white text-center"
-    >
-      <LayoutDashboard className='mx-auto h-20 text-green-400 mb-4 animate-bounce-slow' />
-      <h3 className="text-2xl font-semibold mb-2">One Dashboard for Everything</h3>
-      <p className="text-gray-400">
-        Track and execute all investments from one place — like ordering from multiple restaurants on Swiggy. Just click "Quick Invest" ✅.
-      </p>
-    </motion.div>
-
-    {/* Feature 4: Super Simple & Interactive UI */}
-    <motion.div 
-      initial={{ opacity: 0, y: 30 }} 
-      whileInView={{ opacity: 1, y: 0 }} 
-      transition={{ duration: 0.4, delay: 3 * 0.2 }} 
-      viewport={{ once: true }}
-      whileHover={{ scale: 1.05 }}
-      className="bg-green-950 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 text-white text-center"
-    >
-      <Figma className='mx-auto h-20 text-green-400 mb-4 animate-bounce-slow' />
-      <h3 className="text-2xl font-semibold mb-2">Super Simple Interface</h3>
-      <p className="text-gray-400">
-        Finance, simplified. Emoji-based icons 💰, plain-English summaries, and one-click actions like "Compare" or "Invest Now" — just like Uber.
-      </p>
-    </motion.div>
-
-  </div>
-</section>
+      <FeaturesSection/>
+      
 
 
       {/* Call to Action Section */}

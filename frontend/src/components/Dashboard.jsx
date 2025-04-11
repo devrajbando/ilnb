@@ -28,7 +28,7 @@ function Dashboard() {
           body: JSON.stringify({ id: user._id }),
         });
 
-        const stockData = await stockResponse.json();
+        const stockData = await response.json();
         if (stockData.statusCode === 200) {
           setStocks(stockData.data.stocks);
         } else {
@@ -50,7 +50,7 @@ function Dashboard() {
           body: JSON.stringify({ id: user._id }),
         });
 
-        const mfData = await mfResponse.json();
+        const mfData = await response.json();
         
         if (mfData.statusCode === 200) {
           setMFunds(mfData.data.mutualFunds);

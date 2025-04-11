@@ -61,7 +61,7 @@ const SignOut = () => {
   
 
   return (
-    <div className="min-h-screen bg-blue-950 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gray-800 flex items-center justify-center px-4">
       <div className="bg-gray-900 shadow-md rounded-lg w-full max-w-md p-8">
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold text-gray-100 mb-2">Sign Out Confirmation</h2>
@@ -75,14 +75,14 @@ const SignOut = () => {
           <div className="mb-4">
             <label htmlFor="password" className="block text-gray-100 mb-2">Password</label>
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-100" />
               <input
                 type="password"
                 id="password"
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950"
+                className="w-full pl-10 p-3 border rounded-lg  text-white focus:outline-none focus:ring-2 focus:ring-blue-950"
                 placeholder="Enter your password"
                 required
               />

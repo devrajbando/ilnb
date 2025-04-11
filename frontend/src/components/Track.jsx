@@ -60,10 +60,9 @@ function Track({openChat}) {
         const data = await response.json();
         
         if (data.success === true) {
-          setStockDetails(data.stockinfo);
-        } else {
-          
-        }
+          setStockDetails(data.stockinfo)
+          console.log(data.stockinfo)
+        } 
       } catch (err) {
         console.log(err);
       } finally {
@@ -101,7 +100,7 @@ const parameters = [
 
   useEffect(() => {
     async function fetchRecommendations() {
-      
+      setLoading(true);
       try {
         const apiUrl = import.meta.env.VITE_BACKEND_URL
               const response = await fetch(`${apiUrl}/api/${type}/recommend`, {
@@ -121,49 +120,59 @@ const parameters = [
         }
       } catch (err) {
         console.log(err);
+      }finally {
+        setLoading(false); // end loading, no matter what
       }
     }
 
     fetchRecommendations();
   }, [type]);
 
-  const renderRecommendations = (startIndex, endIndex, title) => {
+  const renderRecommendations = (startIndex, endIndex, title, heading) => {
     const recommendations = recs.slice(startIndex, endIndex);
+    if(loading) {return (
+      <div className="text-center text-blue-500 font-semibold">
+        Loading recommendations...
+      </div>
+    )}
     if (!recommendations.length) {
       return <p className="text-gray-400">No recommendations available.</p>;
     }
   
     return (
       <div className="bg-gray-900 rounded-xl p-4 shadow-lg">
+        
   <h1 className="text-white text-xl font-semibold mb-3">{title}</h1>
   <ul className="space-y-4">
     {recommendations.map((item, index) => (
       <li key={index} className="flex items-center space-x-4">
-        {/* <img
-          src={type === "stock" 
-            ? "https://images.unsplash.com/photo-1631016800696-5ea8801b3c2a?auto=format&fit=crop&w=927&q=80" 
-            : "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=927&q=80"}
-          alt={type === "stock" ? "Stock" : "Mutual Fund"}
-          className="h-20 w-20 rounded-lg object-cover"
-        /> */}
-        <div className="flex-1">
+        
+        <div className="flex-1 flex justify-between">
+          <div>
+
           <h4 className="text-lg font-medium text-gray-200">
             {type === "stock" ? item.Stock : item.Scheme_Name}
           </h4>
           <p className="text-sm text-gray-400">
             {type === "stock" ? item.NAME_OF_COMPANY : item.Fund_House}
           </p>
-          <div className="mt-2 space-x-2">
+            </div>
+          <div className="m-2 space-x-2 flex">
             <button 
             onClick={() => {
               navigate('/track', { state: { title : type === "stock" ? item.Stock : item.Scheme_Name, type : type } });
             }}
-            className="px-3 py-1 btn btn-success">
+            className="px-3 py-1 btn btn-success btn-sm">
               View
             </button>
-            <button className="px-3 py-1 btn btn-primary btn-soft">
+            {heading!=='Default' && 
+            <button 
+            onClick={()=>{
+              navigate('/compare', { state: { first : location.state.title,second : type === "stock" ? item.Stock : item.Scheme_Name, type : type } });
+            }}
+            className="px-3 py-1 btn btn-primary btn-sm ">
               Compare
-            </button>
+            </button>}
           </div>
         </div>
       </li>
@@ -181,8 +190,11 @@ const parameters = [
           <div className='w-1/3'>
 
           <SearchBar
+          purpose="search"
+          first=""
+          second=""
           type={type}
-          placeholder="Search funds or stocks..." 
+          placeholder={`Search ${type === "stock" ? "stocks" : "funds"}` }
           // onResultSelect={handleSelectFund}
           
           debounceTime={400}
@@ -307,9 +319,9 @@ const parameters = [
       )}
 
         {/* Recommendations */}
-        {renderRecommendations(10, 15, 'Recommended for You')}
-        {renderRecommendations(0, 5, 'Stable Stocks')}
-        {renderRecommendations(5, 10, 'Highest Returns')}
+        {renderRecommendations(10, 15, 'Recommended for You',title)}
+        {renderRecommendations(0, 5, 'Stable Stocks',title)}
+        {renderRecommendations(5, 10, 'Highest Returns',title)}
       </div>
     </div>
     </>

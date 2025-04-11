@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
 import { Binoculars, GitCompareArrows } from 'lucide-react';
 import { motion } from 'framer-motion';
-
+import { useNavigate } from "react-router-dom";
 function Equities() {
   const [stocks, setStocks] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
+  const goToEq = (stock) => {
+    navigate('/track', { state: { title : stock, type : "stock" } });
+  }
+  
   useEffect(() => {
     const fetchStocks = async () => {
       try {
@@ -31,6 +35,9 @@ function Equities() {
         {/* Search */}
         <div className="flex justify-center">
         <SearchBar 
+          purpose="search"
+          first=""
+        second=""
           type="stock"
             placeholder="Search funds or stocks..." 
             // onResultSelect={handleSelectFund}
@@ -63,7 +70,7 @@ function Equities() {
                   <th className="px-4 py-3">Composite Score</th>
                   <th className="px-4 py-3">Listing</th>
                   <th className="px-4 py-3"></th>
-                  <th className="px-4 py-3"></th>
+                  
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-700">
@@ -79,16 +86,8 @@ function Equities() {
                     <td className="px-4 py-3">{(stock.Maximum_Drawdown * 100).toFixed(2)}%</td>
                     <td className="px-4 py-3">{stock.Composite_Score_Risky?.toFixed(3)}</td>
                     <td className="px-4 py-3">{stock.DATE_OF_LISTING}</td>
-                    <td className="px-4 py-3">
-                      <button className="text-green-400 hover:text-green-300 flex items-center gap-1">
-                        View <Binoculars size={16} />
-                      </button>
-                    </td>
-                    <td className="px-4 py-3">
-                      <button className="text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
-                        Compare <GitCompareArrows size={16} />
-                      </button>
-                    </td>
+                    <td className="px-4 py-3 font-medium"><button onClick={()=>goToEq(stock.Stock)} className='btn btn-success btn-soft flex'>View <Binoculars/></button></td>
+                   
                   </tr>
                 ))}
               </tbody>

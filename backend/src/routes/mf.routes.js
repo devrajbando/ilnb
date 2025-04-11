@@ -6,5 +6,5 @@ const mfRouter=Router()
 mfRouter.route('/mfDisplay').get(displayFunds)
 mfRouter.route('/track').post(trackMF)
 mfRouter.route('/recommend').get(verifyJWT,recommendMFs)
-mfRouter.route('/search').get(searchMFs)
+mfRouter.route('/search').post(searchMFs)
 export default mfRouter
