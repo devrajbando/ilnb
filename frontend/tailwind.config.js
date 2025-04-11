@@ -9,6 +9,9 @@ export default withMT({
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'gradient-dark': 'bg-gradient-to-br from-green-950 to-black', // green-950 to black
+      },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
       },

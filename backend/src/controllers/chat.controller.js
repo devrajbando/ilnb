@@ -9,7 +9,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai"; // Ensure you have t
 // const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY); // Ideally use process.env.GEMINI_API_KEY
 const genAI = new GoogleGenerativeAI('AIzaSyAljRC428A-Epl9Vjkgz098gZhkw-C0pG0'); // Ideally use process.env.GEMINI_API_KEY
 
-const PREDEFINED_TOPICS = {
+const PREDEFINED_TOPICS = { 
     "Risk": "You're a financial advisor. Explain what the Sharpe Ratio is, how it helps assess investment risk, and when it's useful. Briefly describe what different ranges of Sharpe Ratios mean, using simple examples. Keep it short and easy to understand for someone with no financial background — 2 to 3 sentences, no jargon.",
     "Stability": "You're a financial advisor. Explain what Maximum Drawdown means, how it shows investment stability, and when it matters. Give a simple example to show how different drawdown values affect investment decisions. Use plain language for someone without financial knowledge — max 2 to 3 sentences, no jargon.",
     "One year Return": "You're a financial advisor. Explain what Annualized Return means, how it works, and why it's important for investors. Include a basic example of how different return values might impact someone's investment. Keep it very simple, short (2 to 3 sentences), and avoid financial jargon.",
@@ -45,16 +45,20 @@ let chatId;
 
     chatSessions[chatId] = chat;
 
-  if(input==="")res.json({response:`Hello ${req.user.name}! How can I assist you today?`})
+  if(input==="") return res.json({response:`Hello ${req.user.name}! How can I assist you today?`,
+  chat_id:chatId
+  })
 
-    res.json({
+    return res.json({
       response: result.response.text(),
+      chat_id:chatId
     });
-
+ 
 }) 
 
  const continueChat=asyncHandler(async(req,res)=>{
   const input =req.body.inputValue;
+  console.log(req.body)
   const chatId = req.body.chatId;
   console.log(chatId)
   // try {
@@ -81,7 +85,7 @@ let chatId;
   //   });
   // }
   const chat = chatSessions[chatId];
-  const result = await chat.sendMessage(userInput);
+  const result = await chat.sendMessage(input);
   res.json({ response: result.response.text() });
 })
 
@@ -90,8 +94,8 @@ const summarizeComparison=asyncHandler(async(req,res)=>{
   console.log(req.body)
   const company1=req.body.Company_one
   const company2=req.body.Company_two
-  console.log("mustardddddd")
-  console.log(company1,company2)
+  console.log("mustardddddd") 
+  console.log(company1,company2) 
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
   const chat = model.startChat({ history: [] });
   const comparePrompt = `You are a financial advisor. The following is the data of two stocks or mutual funds. First: ${JSON.stringify(company1)}. Second: ${JSON.stringify(company2)}. Compare the two and summarize the key differences and similarities in a simple and easy-to-understand manner. Your summary should be concise, using plain language and avoiding jargon. Instead of using the official financial terms, use plain, everyday language to explain to the user. Please keep your response short, ideally 3 to 4 sentences. Give further financial advice, but keep it diploamtic, not absolute and your recommendations can be divided into differetnt type of users.`;

@@ -39,7 +39,7 @@ function App() {
 
 
     <AuthProvider>
-    <div className='font-inter'>
+    <div className='font-inter bg-gradient-to-br from-green-950 to-black'>
       <Router>
       
       <Navbar/>
